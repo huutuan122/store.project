@@ -5,6 +5,7 @@
 #include<string>
 #include<map>
 #include<algorithm>
+#include<fstream>
 using namespace std;
 
 class Good {
@@ -50,8 +51,8 @@ public:
 };
 
 class GoodList {
-private:
-	vector<Good> _list;
+public:
+	vector<Good> list;
 public:
 	static bool compNameAZ(Good a, Good b);
 	static bool compNameZA(Good a, Good b);
@@ -60,12 +61,15 @@ public:
 	static bool compBestSeller(Good a, Good b);
 	static bool compRateAs(Good a, Good b);
 	static bool compRateDes(Good a, Good b);
+	int size() { return list.size(); }
+	Good goodAt(int position);
+	void updateGood(Good newgood, int position);
 	void add(Good newGood);
 	void erase(int position);
 	void moveUp(int position);
 	void moveDown(int position);
 	Good bestSeller();
-	string list();
+	string showList();
 	void sortAZ();
 	void sortZA();
 	void sortByPriceAscending();
@@ -76,4 +80,11 @@ public:
 	vector<Good> search(string GoodName);
 	map<string, vector<Good>> classify();
 	string listClassify();
+};
+
+class App {
+public:
+	static void saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment);
+	static vector<string> splitString(string haystack, string needle);
+	static GoodList readGoodListFromFile(string fileGood, string fileRate, string fileComment);
 };
