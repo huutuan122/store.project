@@ -42,13 +42,15 @@ public:
 	string Password();
 	void setPassword(string pass);
 	double getSalary();
+	double MonthlyWorkHours();
+	int Level();
 public:
 	void calWorkHour();
 	void Leveling();
 	void CheckIn();
 	void CheckOut();
 	static void EmployeeMenu();
-	void editInfo();
+	static void editInfo(vector<Employee> &list, int pos);
 	static int isAccess(vector<Employee> list);
 	static void SignUp(vector<Employee>& list);
 	static vector<Employee> LoadData();

@@ -78,6 +78,14 @@ double Employee::getSalary() {
 	return _salary;
 }
 
+double Employee::MonthlyWorkHours() {
+	return _monthlyworkhour;
+}
+
+int Employee::Level() {
+	return _level;
+}
+
 void Employee::SignUp(vector<Employee>& list) {
 	Employee person;
 	person.setID(to_string(list.size() + 1));
@@ -190,20 +198,27 @@ int Employee::isAccess(vector<Employee> list) {
 	
 }
 
-void Employee::editInfo() {
+string hidePassword(string pass) {
+	string result;
+	for (char c : pass)
+		result += "*";
+	return result;
+}
+
+void Employee::editInfo(vector<Employee> &list, int pos) {
 	string oldpass;
 	string newpass;
 	string temp;
 	int choice;
 	cout << "---------- Thong tin ca nhan ----------" << endl;
-	cout << "1) Ho va Ten: " << _name << endl;
-	cout << "2) Ngay sinh: " << _dob << endl;
-	cout << "3) So dien thoai: " << _tel << endl;
-	cout << "4) Email: " << _email << endl;
-	cout << "5) Dia chi: " << _address << endl;
-	cout << "6) So gio lam trong thang: " << _monthlyworkhour << endl;
-	cout << "7) Level: " << _level << endl;
-	cout << "8) Mat khau: *********" << endl;
+	cout << "1) Ho va Ten: " << list[pos].Name() << endl;
+	cout << "2) Ngay sinh: " << list[pos].DOB() << endl;
+	cout << "3) So dien thoai: " << list[pos].Tel() << endl;
+	cout << "4) Email: " << list[pos].Email() << endl;
+	cout << "5) Dia chi: " << list[pos].Address() << endl;
+	cout << "6) So gio lam trong thang: " << list[pos].MonthlyWorkHours() << endl;
+	cout << "7) Level: " << list[pos].Level() << endl;
+	cout << "8) Mat khau: " << hidePassword(list[pos].Password()) << endl;
 	do {
 		cout << "Ban muon chinh sua thong tin nao? (Nhap '0' de thoat) ";
 		cin >> choice;
@@ -213,27 +228,27 @@ void Employee::editInfo() {
 		case 1:
 			cout << "Nhap Ho va Ten: ";
 			getline(cin, temp);
-			_name = temp;
+			list[pos].setName(temp);
 			break;
 		case 2:
 			cout << "Nhap ngay sinh: ";
 			getline(cin, temp);
-			_dob = temp;
+			list[pos].setDOB(temp);
 			break;
 		case 3:
 			cout << "Nhap so dien thoai: ";
 			getline(cin, temp);
-			_tel = temp;
+			list[pos].setTel(temp);
 			break;
 		case 4:
 			cout << "Nhap email: ";
 			getline(cin, temp);
-			_email = temp;
+			list[pos].setEmail(temp);
 			break;
 		case 5:
 			cout << "Nhap dia chi: ";
 			getline(cin, temp);
-			_address = temp;
+			list[pos].setAddress(temp);
 			break;
 		case 6:
 			cout << "---------- Co lam thi moi co an ----------" << endl;
@@ -244,7 +259,7 @@ void Employee::editInfo() {
 		case 8:
 			cout << "Nhap mat khau cu: ";
 			getline(cin, oldpass);
-			if (oldpass != _password) {
+			if (oldpass != list[pos].Password()) {
 				cout << "---------- Mat khau cu khong khop! ----------" << endl;
 				break;
 			}
@@ -258,7 +273,7 @@ void Employee::editInfo() {
 					break;
 				}
 				else
-					_password = newpass;
+					list[pos].setPassword(newpass);
 			}
 			break;
 		}
@@ -289,7 +304,7 @@ void Employee::EmployeeMenu() {
 				if (flag)
 					cout << "---------- Ban da Check in roi ----------" << endl;
 				else
-					list[pos].editInfo();
+					Employee::editInfo(list,pos);
 				break;
 			case 2:
 				list[pos].CheckIn();
