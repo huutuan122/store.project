@@ -80,11 +80,11 @@ public:
 	vector<Good> search(string GoodName);
 	map<string, vector<Good>> classify();
 	string listClassify();
+	static GoodList readGoodListFromFile(string fileGood, string fileRate, string fileComment);
+	static void saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment);
 };
 
-class App {
+class Tokenizer {
 public:
-	static void saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment);
 	static vector<string> splitString(string haystack, string needle);
-	static GoodList readGoodListFromFile(string fileGood, string fileRate, string fileComment);
 };

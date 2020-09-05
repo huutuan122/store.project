@@ -187,7 +187,7 @@ string GoodList::listClassify() {
 	return result.str();
 }
 
-void App::saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment) {
+void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment) {
 	ofstream file;
 	file.open(fileGood);
 	file << list.size() << endl;
@@ -219,7 +219,7 @@ void App::saveGoodListToFile(GoodList list, string fileGood, string fileRate, st
 	file.close();
 }
 
-vector<string> App::splitString(string haystack, string needle) {
+vector<string> Tokenizer::splitString(string haystack, string needle) {
 	vector<string> token;
 	int start = 0;
 	size_t foundPosition = haystack.find(needle, start);
@@ -232,7 +232,7 @@ vector<string> App::splitString(string haystack, string needle) {
 	return token;
 }
 
-GoodList App::readGoodListFromFile(string fileGood, string fileRate, string fileComment) {
+GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string fileComment) {
 	ifstream file;
 	file.open(fileGood);
 	GoodList result;
@@ -242,7 +242,7 @@ GoodList App::readGoodListFromFile(string fileGood, string fileRate, string file
 	for (int i = 0; i < n; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, "-");
 		Good newGood(info[0], info[1], stof(info[2]), stoi(info[3]), info[4], info[5]);
 		result.add(newGood);
 	}
@@ -255,7 +255,7 @@ GoodList App::readGoodListFromFile(string fileGood, string fileRate, string file
 	for (int i = 0; i < n2; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, "-");
 		for (int k = 0; k < result.list.size(); k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {
@@ -273,7 +273,7 @@ GoodList App::readGoodListFromFile(string fileGood, string fileRate, string file
 	for (int i = 0; i < n3; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, "-");
 		for (int k = 0; k < result.list.size();k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {
