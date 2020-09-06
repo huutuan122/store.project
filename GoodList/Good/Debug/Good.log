@@ -1,8 +1,0 @@
-﻿  Good.cpp
-D:\Final\store.project\GoodList\Good\Good.cpp(259,21): warning C4018: '<': signed/unsigned mismatch
-D:\Final\store.project\GoodList\Good\Good.cpp(261,23): warning C4018: '<': signed/unsigned mismatch
-D:\Final\store.project\GoodList\Good\Good.cpp(277,21): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  Generating Code...
-D:\Final\store.project\GoodList\Good\Good.cpp(279,23): warning C4018: '<': signed/unsigned mismatch
-  Good.vcxproj -> D:\Final\store.project\GoodList\Debug\Good.exe
