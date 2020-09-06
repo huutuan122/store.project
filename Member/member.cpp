@@ -4,12 +4,13 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include "Tokenizer.h"
 
 using namespace std;
 
 void Member::loginasMember(vector<Member *> mem)
 {
-    Member *temp;
+    Member *temp = new Member();
     string user, pass;
     do
     {
@@ -27,18 +28,25 @@ void Member::loginasMember(vector<Member *> mem)
         }
 
         if (pass != temp->Password())
-            cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!!";
+        {
+            cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
+            Sleep(1000);
+            system("cls");
+        }
+        else
+            cout << "Dang nhap thanh cong! ";
         Sleep(1000);
+
     } while (pass != temp->Password());
-    cout << "Dang nhap thanh cong! ";
-    system("cls");
+
+    // system("cls");
 }
 
 string Member::toString()
 {
     stringstream writer;
-    writer << _user << " _ " << _password << " _ "
-           << _name << " _ " << _point << " _ " << _level;
+    writer << _user << " - " << _password << " - "
+           << _name << " - " << _point << " - " << _level;
     return writer.str();
 }
 
@@ -53,7 +61,7 @@ void Member::accumulatePoint(unsigned int purchase)
         _level = 'D';
 }
 
-unsigned int Member::usingPoint(bool sure)
+int Member::usingPoint(bool sure)
 {
     if (sure == 1)
     {
@@ -62,8 +70,7 @@ unsigned int Member::usingPoint(bool sure)
         else
             cout << "Khong co du diem!!";
     }
-    else
-        return 0;
+    return 0;
 }
 
 void Member::addMember(string fileName, Member *mem)
@@ -73,8 +80,54 @@ void Member::addMember(string fileName, Member *mem)
 
     f << endl
       << mem->user() << " - " << mem->Password() << " - "
-      << mem->ID() << " - " << mem->Name() << " - " << mem->Point()
+      << " - " << mem->Name() << " - " << mem->Point()
       << " - " << mem->Level();
 
     f.close();
+}
+
+vector<Member *> Member::readMemberFile(string fileName)
+{
+    ifstream f;
+    f.open(fileName);
+    vector<Member *> list;
+    string s;
+    while (!f.eof())
+    {
+        getline(f, s);
+        vector<string> getStr;
+        getStr = Tokenizer::split(s, " - ");
+        Member *temp = new Member();
+        temp->setUser(getStr[0]);
+        temp->setPassword(getStr[1]);
+        temp->setName(getStr[2]);
+        int point = stoi(getStr[3]);
+        temp->setPoint(point);
+        temp->setLevel(getStr[4]);
+        list.push_back(temp);
+    }
+    f.close();
+
+    return list;
+}
+
+void Member::registerMember(Member*& mem){
+    string s;
+    cout << "Nhap ten dang nhap: ";
+    cin >> s;
+    mem->setUser(s);
+    cout << "Nhap mat khau: ";
+    cin >> s;
+    mem->setPassword(s);
+    cout << "Dang nhap thanh cong! " << endl;
+    Sleep(1000);
+    
+    cout << "Nhap ten cua ban: ";
+    getline(cin, s);
+    getline(cin, s);
+    mem->setName(s);
+    cout << "Diem tich luy ban dau cua ban la 0, cap do thanh vien la Dong!!" << endl;
+    mem->setPoint(0);
+    mem->setLevel("Bronze");
+    system("cls");
 }
