@@ -6,6 +6,7 @@ class Common
 public:
     static void fixConsoleWindow();
     static void gotoXY(int, int);
+    // void gotoPrint(int x, int y, char msg[STRLEN]);
     static void hideCursor(bool);
     static void removeScrollbar();
     static void setSize();

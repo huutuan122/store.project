@@ -20,26 +20,18 @@ void Common::gotoXY(int X, int Y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void Common::hideCursor(bool X)
-{
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO ConCurInf;
-    ConCurInf.dwSize = 10;
-    ConCurInf.bVisible = X;
-    SetConsoleCursorInfo(handle, &ConCurInf);
-}
-
-void Common::removeScrollbar()
-{
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO info;
-    GetConsoleScreenBufferInfo(handle, &info);
-    COORD new_size =
-        {
-            info.srWindow.Right - info.srWindow.Left + 1,
-            info.srWindow.Bottom - info.srWindow.Top + 1};
-    SetConsoleScreenBufferSize(handle, new_size);
-}
+// void gotoPrint(int x, int y, char msg[STRLEN])
+// {
+//     //while(1){  //printf iff flag_busy is true
+//     flag_gotoxy = false;
+//     if (flag_gotoxy == false)
+//     {
+//         gotoxy(x, y);
+//         printf("%s", msg);
+//     }
+//     flag_gotoxy = true;
+//     //}
+// }
 
 void Common::setSize()
 {
@@ -47,4 +39,24 @@ void Common::setSize()
     RECT r;
     GetWindowRect(console, &r);
     MoveWindow(console, r.left, r.top, 115 * 10, 70 * 10, TRUE);
+}
+
+void UserInterface::Menu()
+{
+
+    for (int i = 1; i < 119; i++)
+    {
+        Common::gotoXY(i, 0);
+        cout << "_";
+        Common::gotoXY(i, 30);
+        cout << "_";
+    }
+
+    for (int i = 1; i < 30; i++)
+    {
+        Common::gotoXY(0, i);
+        cout << "|";
+        Common::gotoXY(120, i);
+        cout << "|";
+    }
 }
