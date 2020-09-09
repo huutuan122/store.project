@@ -8,6 +8,7 @@ int main(){
     Common::fixConsoleWindow();
     UserInterface::Menu();
 
+    cout << endl;
     system("pause");
     return 0;
 }

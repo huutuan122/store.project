@@ -1,62 +1,65 @@
 #include "interface.h"
+#include "Good_Menu_Discount/Menu.h"
 #include <Windows.h>
 #include <iostream>
 
 using namespace std;
 
-void Common::fixConsoleWindow()
+void UserInterface::Screen()
 {
-    HWND consoleWindow = GetConsoleWindow();
-    LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
-    style = style & ~(WS_MAXIMIZEBOX) & ~(WS_THICKFRAME);
-    SetWindowLong(consoleWindow, GWL_STYLE, style);
-}
-
-void Common::gotoXY(int X, int Y)
-{
-    COORD coord;
-    coord.X = X;
-    coord.Y = Y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-// void gotoPrint(int x, int y, char msg[STRLEN])
-// {
-//     //while(1){  //printf iff flag_busy is true
-//     flag_gotoxy = false;
-//     if (flag_gotoxy == false)
-//     {
-//         gotoxy(x, y);
-//         printf("%s", msg);
-//     }
-//     flag_gotoxy = true;
-//     //}
-// }
-
-void Common::setSize()
-{
-    HWND console = GetConsoleWindow();
-    RECT r;
-    GetWindowRect(console, &r);
-    MoveWindow(console, r.left, r.top, 115 * 10, 70 * 10, TRUE);
-}
-
-void UserInterface::Menu()
-{
-
+    Common::color(9);
     for (int i = 1; i < 119; i++)
     {
         Common::gotoXY(i, 0);
         cout << "_";
-        Common::gotoXY(i, 30);
+        Common::gotoXY(i, 28);
         cout << "_";
     }
-
-    for (int i = 1; i < 30; i++)
+    for (int i = 1; i < 29; i++)
     {
         Common::gotoXY(0, i);
         cout << "|";
-        Common::gotoXY(120, i);
+    }
+    for (int i = 1; i < 29; i++)
+    {
+        Common::gotoXY(119, i);
         cout << "|";
     }
+
+    Common::color(1);
+    Common::gotoXY(53, 3);
+    cout << "______MENU______";
+    Common::gotoXY(40, 6);
+    cout << "1.   Mua hang";
+    Common::gotoXY(40, 8);
+    cout << "2.   Dang nhap";
+    Common::gotoXY(40, 10);
+    cout << "3.   Danh gia";
+    Common::gotoXY(40, 12);
+    cout << "4.   Thong tin cua hang";
+    Common::gotoXY(40, 14);
+    cout << "5.   Thoat";
+}
+
+void UserInterface::MainMenu()
+{
+    Screen();
+
+    Common::gotoXY(50, 16);
+    cout << "Nhap lua chon: ";
+    Choice();
+
+    Common::gotoXY(0, 30);
+    cout << endl;
+}
+
+void UserInterface::Choice()
+{
+    int enter;
+    cin >> enter;
+
+    if (enter == 1)
+        Access::Muahang();
+    if (enter == 2)
+        Access::Dangnhap();
 }

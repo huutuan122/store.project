@@ -6,16 +6,22 @@ class Common
 public:
     static void fixConsoleWindow();
     static void gotoXY(int, int);
-    // void gotoPrint(int x, int y, char msg[STRLEN]);
-    static void hideCursor(bool);
-    static void removeScrollbar();
-    static void setSize();
+    static void color(int);
+};
+
+class Access
+{
+public:
+    static void Muahang();
+    static void Dangnhap();
 };
 
 class UserInterface
 {
 public:
-    static void Menu();
+    static void Choice();
+    static void Screen();
+    static void MainMenu();
 };
 
 #endif
