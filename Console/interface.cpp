@@ -1,5 +1,7 @@
 #include "interface.h"
-#include "Good_Menu_Discount/Menu.h"
+#include "Menu.h"
+#include "Access.h"
+#include "Common.h"
 #include <Windows.h>
 #include <iostream>
 
@@ -25,7 +27,11 @@ void UserInterface::Screen()
         Common::gotoXY(119, i);
         cout << "|";
     }
+}
 
+void UserInterface::MainMenu()
+{
+    Screen();
     Common::color(1);
     Common::gotoXY(53, 3);
     cout << "______MENU______";
@@ -39,11 +45,6 @@ void UserInterface::Screen()
     cout << "4.   Thong tin cua hang";
     Common::gotoXY(40, 14);
     cout << "5.   Thoat";
-}
-
-void UserInterface::MainMenu()
-{
-    Screen();
 
     Common::gotoXY(50, 16);
     cout << "Nhap lua chon: ";
@@ -58,8 +59,8 @@ void UserInterface::Choice()
     int enter;
     cin >> enter;
 
-    if (enter == 1)
-        Access::Muahang();
+    // if (enter == 1)
+    //     Access::Muahang();
     if (enter == 2)
         Access::Dangnhap();
 }

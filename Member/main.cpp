@@ -10,10 +10,14 @@ int main()
     vector<Member *> mem;
     mem = Member::readMemberFile("member.txt");
 
-    Member::registerMember(temp);
-    mem.push_back(temp);
-    Member::addMember("member.txt", temp);
+    // Member::registerMember(temp);
+    // mem.push_back(temp);
+    // Member::addMember("member.txt", temp);
 
-    system("pause");
-    return 1;
+    for (auto p: mem){
+        cout << p->toString() << endl;
+    }
+
+        system("pause");
+    return 0;
 }

@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include "Tokenizer.h"
 using namespace std;
 
 #ifndef _MEMBER_H_
@@ -63,7 +64,33 @@ public:
     int usingPoint(bool sure);
     static void addMember(string fileName, Member *mem);
     void updateMemberInfo(string fileName, Member *&mem);
-    static vector<Member *> readMemberFile(string fileName);
+    static vector<Member *> readMemberFile(string fileName){
+        ifstream f;
+        f.open(fileName);
+        vector<Member *> list;
+        string s;
+        while (!f.eof())
+        {
+            getline(f, s);
+            vector<string> getStr;
+            string sep = " - ";
+            getStr = TokenizerStr::split(s, sep);
+            Member *temp = new Member();
+            temp->setUser(getStr[0]);
+            temp->setPassword(getStr[1]);
+            temp->setName(getStr[2]);
+
+            int point = stoi(getStr[3]);
+            temp->setPoint(point);
+
+            temp->setLevel(getStr[4]);
+
+            list.push_back(temp);
+        }
+        f.close();
+
+        return list;
+    }
     static void registerMember(Member*& mem);
 };
 

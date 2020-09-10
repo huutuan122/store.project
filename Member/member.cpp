@@ -4,7 +4,8 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
-#include "Tokenizer.h"
+#include "../Member/Tokenizer.h"
+
 
 using namespace std;
 
@@ -86,30 +87,10 @@ void Member::addMember(string fileName, Member *mem)
     f.close();
 }
 
-vector<Member *> Member::readMemberFile(string fileName)
-{
-    ifstream f;
-    f.open(fileName);
-    vector<Member *> list;
-    string s;
-    while (!f.eof())
-    {
-        getline(f, s);
-        vector<string> getStr;
-        getStr = Tokenizer::split(s, " - ");
-        Member *temp = new Member();
-        temp->setUser(getStr[0]);
-        temp->setPassword(getStr[1]);
-        temp->setName(getStr[2]);
-        int point = stoi(getStr[3]);
-        temp->setPoint(point);
-        temp->setLevel(getStr[4]);
-        list.push_back(temp);
-    }
-    f.close();
-
-    return list;
-}
+// vector<Member *> Member::readMemberFile(string fileName)
+// {
+    
+// }
 
 void Member::registerMember(Member*& mem){
     string s;

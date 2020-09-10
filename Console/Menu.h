@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
-#include"Good.h"
+#include "../Good/Good.h"
 using namespace std;
 
 class Menu {
@@ -23,7 +23,7 @@ public:
 public:
 	Menu();
 	Menu(string hotline, string address, string moreInfo);
-	void SignIn();
+	static void SignIn();
 	void ViewGoodList();
 	void Order();
 	void ViewStoreInfo();

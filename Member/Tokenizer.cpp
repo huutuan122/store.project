@@ -5,7 +5,7 @@
 #include <algorithm>
 using namespace std;
 
-vector<string> Tokenizer::split(string haystack, string seperator)
+vector<string> TokenizerStr::split(string haystack, string seperator)
 {
     string _haystack = haystack;
     vector<string> temp;

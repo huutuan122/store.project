@@ -1,6 +1,7 @@
 #include "interface.h"
 #include <Windows.h>
 #include <iostream>
+#include "Common.h"
 
 using namespace std;
 

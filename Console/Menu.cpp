@@ -1,4 +1,8 @@
 #include"Menu.h"
+#include "interface.h"
+#include "../Member/member.h"
+#include "../Member/member.cpp"
+#include <vector>
 
 Menu::Menu() {
 	_hotline = "";
@@ -13,21 +17,26 @@ Menu::Menu(string hotline, string address, string moreInfo) {
 }
 
 void Menu::SignIn() {
-	cout << "Choose one of the following:\n"
-		<< "1. Sign in as a member\n"
-		<< "2. Sign in as a employee\n"
-		<< "3. Sign is as a manager\n";
+	Common::gotoXY(40, 6);
+	cout << "1.    Dang nhap hoi vien";
+	Common::gotoXY(40, 8);
+	cout << "2.    Dang nhap nhan vien";
+	Common::gotoXY(40, 10);
+	cout << "3.    Dang nhap quan li";
+
+	Common::gotoXY(50, 13);
+	cout << "Chon mot trong cac muc tren: ";
 	int choice;
 	cin >> choice;
-	if (choice == 1);// Luc tong hop lai thi ghi ham sign in vao day
-	if (choice == 2);
-	if (choice == 3);
+	// if (choice == 1)
+	// if (choice == 2);
+	// if (choice == 3);
 }
 
-void Menu::ViewGoodList() {
-	cout << "Good list:\n";
-	cout << _data.showList();
-}
+// void Menu::ViewGoodList() {
+// 	cout << "Good list:\n";
+// 	cout << _data.showList();
+// }
 
 void Menu::Order() {
 	cout << "Order:\n";// Nhap ham order vao day
