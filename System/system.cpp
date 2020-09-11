@@ -1,48 +1,62 @@
 #include "system.h"
 #include <windows.h>
+#include "../Console/Common.h"
+#include "../Console/interface.h"
+#include "../Member/Tokenizer.h"
+#include <string>
+#include <sstream>
 
 using namespace std;
 
-void LoginAsMember::login(vector<Member *> mem)
-{
-    Member *temp = new Member();
-    string user, pass;
-    do
-    {
-        cout << "Username: ";
-        cin >> user;
-        cout << "Password: ";
-        cin >> pass;
-        for (auto p : mem)
-        {
-            if (user == p->user())
-            {
-                temp->setUser(p->user());
-                temp->setPassword(p->Password());
-            }
-        }
-
-        if (pass != temp->Password())
-        {
-            cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
-            Sleep(1000);
-            system("cls");
-        }
-        else
-            cout << "Dang nhap thanh cong! ";
-        Sleep(1000);
-
-    } while (pass != temp->Password());
+string Manager::toString(){
+    stringstream writer;
+    writer << _username << " - " << _password << " - " << _name;
+    return writer.str();
 }
 
-void LoginAsManager::login(vector<Manager *> manager)
+vector<Manager*> Manager::readManagerFile(string fileName){
+    ifstream f;
+    f.open(fileName);
+
+    vector<Manager *> list;
+    
+
+    if (!f){
+        Common::gotoXY(40, 10);
+        cout << "Khong the mo file quan li!";
+    }
+
+    string s;
+    while(!f.eof()){
+        Manager *manager = new Manager();
+        getline(f, s);
+        vector<string> str = TokenizerStr::split(s, " - ");
+        manager->setUser(str[0]);
+        manager->setPassword(str[1]);
+        manager->setName(str[2]);
+
+        list.push_back(manager);
+    }
+
+    f.close();
+    return list;
+}
+
+void Manager::LoginAsManager()
 {
+    vector<Manager *> manager = readManagerFile("E:\\VSC\\C++\\Project Store\\github\\System\\manager.txt");
     Manager *temp = new Manager();
     string user, pass;
     do
     {
+        system("cls");
+        UserInterface::Screen();
+        Common::gotoXY(55, 6);
+        cout << "____He thong quan li____";
+        Common::gotoXY(40, 10);
         cout << "Username: ";
         cin >> user;
+        Common::gotoXY(40, 12);
         cout << "Password: ";
         cin >> pass;
         for (auto p : manager)
@@ -56,13 +70,15 @@ void LoginAsManager::login(vector<Manager *> manager)
 
         if (pass != temp->Password())
         {
+            Common::gotoXY(35, 16);
             cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
             Sleep(1000);
-            system("cls");
         }
         else
-            cout << "Dang nhap thanh cong! ";
+            break;
         Sleep(1000);
 
     } while (pass != temp->Password());
+    Common::gotoXY(35, 16);
+    cout << "Dang nhap thanh cong! ";
 }
