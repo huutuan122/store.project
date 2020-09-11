@@ -1,2 +1,2 @@
-tuan - 123 - Huu Tuan - 100 - Gold
-bao - 1234 - Gia Bao - 0 - Bronze
+1 - tuan - 123 - Huu Tuan - 100 - Gold
+2 - van - 12345 - Le Nguyen Tu Van - 0 - Bronze

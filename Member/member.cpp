@@ -11,10 +11,23 @@
 
 using namespace std;
 
-vector<Member *> Member::readMemberFile(string fileName)
+void Member::saveMemberInfo(vector<Member*> list){
+    ofstream f;
+    f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt", ios::out);
+
+    f << list[0]->toString();
+    for (int i = 1; i < list.size(); i++){
+        f << endl
+          << list[i]->toString();
+    }
+
+    f.close();
+}
+
+vector<Member *> Member::readMemberFile()
 {
     ifstream f;
-    f.open(fileName);
+    f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt");
     vector<Member *> list;
     string s;
     
@@ -25,14 +38,15 @@ vector<Member *> Member::readMemberFile(string fileName)
         string sep = " - ";
         getStr = TokenizerStr::split(s, sep);
         Member *temp = new Member();
-        temp->setUser(getStr[0]);
-        temp->setPassword(getStr[1]);
-        temp->setName(getStr[2]);
+        temp->setID(getStr[0]);
+        temp->setUser(getStr[1]);
+        temp->setPassword(getStr[2]);
+        temp->setName(getStr[3]);
 
-        int point = stoi(getStr[3]);
+        int point = stoi(getStr[4]);
         temp->setPoint(point);
 
-        temp->setLevel(getStr[4]);
+        temp->setLevel(getStr[5]);
 
         list.push_back(temp);
     }
@@ -43,7 +57,7 @@ vector<Member *> Member::readMemberFile(string fileName)
 
 void Member::loginasMember()
 {
-    vector<Member *> mem = Member::readMemberFile("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt");
+    vector<Member *> mem = Member::readMemberFile();
     Member *temp = new Member();
     string user, pass;
     do
@@ -87,7 +101,7 @@ void Member::loginasMember()
 string Member::toString()
 {
     stringstream writer;
-    writer << _user << " - " << _password << " - "
+    writer << _id << " - " << _user << " - " << _password << " - "
            << _name << " - " << _point << " - " << _level;
     return writer.str();
 }
@@ -115,23 +129,43 @@ int Member::usingPoint(bool sure)
     return 0;
 }
 
-void Member::addMember(string fileName, Member *mem)
+void Member::addMember()
 {
+    Member* mem = new Member();
     ofstream f;
-    f.open("member.txt", ios::app);
+    vector<Member *> list = readMemberFile();
+    Common::gotoXY(49, 4);
+    cout << "----------Hoan tat cac thong tin sau----------" << endl;
 
-    f << endl
-      << mem->user() << " - " << mem->Password() << " - "
-      << " - " << mem->Name() << " - " << mem->Point()
-      << " - " << mem->Level();
+    mem->setID(to_string(list.size() + 1));
+    string str;
+    Common::gotoXY(40, 6);
+    cout << "Nhap ten dang nhap: ";
+    cin >> str;
+    mem->setUser(str);
 
-    f.close();
+    Common::gotoXY(40, 8);
+    cout << "Nhap mat khau: ";
+    cin >> str;
+    mem->setPassword(str);
+
+    Common::gotoXY(40, 10);
+    cout << "Nhap ten: ";
+    getline(cin, str);
+    getline(cin, str);
+    mem->setName(str);
+
+    Sleep(1000);
+    Common::gotoXY(40, 12);
+    cout << "Them thanh cong!";
+    mem->setPoint(0);
+    mem->setLevel("Bronze");
+
+    list.push_back(mem);
+    saveMemberInfo(list);
 }
 
-// vector<Member *> Member::readMemberFile(string fileName)
-// {
 
-// }
 
 void Member::registerMember(Member *&mem)
 {
@@ -153,4 +187,37 @@ void Member::registerMember(Member *&mem)
     mem->setPoint(0);
     mem->setLevel("Bronze");
     system("cls");
+}
+
+void Member::deleteMember(Member* mem){
+    int i = 0;
+    vector<Member*> list = readMemberFile();
+    for (auto p : list)
+    {
+        if (p->ID() == mem->ID())
+        {
+            list.erase(list.begin() + i);
+        }
+        i++;
+    }
+
+    for (int i = 0; i < list.size(); i++)
+    {
+        list[i]->setID(to_string(i + 1));
+    }
+
+    saveMemberInfo(list);
+}
+
+void Member::showMemberList(){
+    vector<Member *> list = readMemberFile();
+    int i = 4;
+    Common::gotoXY(52, 2);
+    cout << "_______DANH SACH NHAN VIEN_______";
+    for (auto p : list)
+    {
+        Common::gotoXY(15, i);
+        cout << p->toString();
+        i++;
+    }
 }

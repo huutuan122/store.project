@@ -1,18 +1,20 @@
 #ifndef _MENU_
 #define _MENU_
-#include<iostream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <string>
+#include <vector>
 #include "../Good/Good.h"
 using namespace std;
 
-class Menu {
+class Menu
+{
 private:
 	GoodList _data;
 	string _hotline;
 	string _address;
 	string _moreInfo;
 	vector<string> _feedback;
+
 public:
 	string hotline() { return _hotline; }
 	string address() { return _address; }
@@ -20,6 +22,7 @@ public:
 	void setHotline(string value) { _hotline = value; }
 	void setAddress(string value) { _address = value; }
 	void setMoreInfo(string value) { _moreInfo = value; }
+
 public:
 	Menu();
 	Menu(string hotline, string address, string moreInfo);
@@ -31,8 +34,5 @@ public:
 	void Exit();
 	void addFeedback(string feedback);
 };
-
-
-
 
 #endif // !_MENU_

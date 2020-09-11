@@ -37,7 +37,10 @@ public:
     string toString();
     static void LoginAsManager();
     static vector<Manager *> readManagerFile(string fileName);
+    static void ManagerMenu();
+    static void EmployeeSystem();
+    static void MemberSystem();
+    static void TotalIncome();
 };
-
 
 #endif

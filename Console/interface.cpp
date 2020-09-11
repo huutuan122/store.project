@@ -29,9 +29,11 @@ void UserInterface::Screen()
     }
 }
 
-void UserInterface::MainMenu()
+void UserInterface::MainMenu() // Level 1
 {
+    system("cls");
     Screen();
+    
     Common::color(1);
     Common::gotoXY(53, 3);
     cout << "______MENU______";
@@ -52,15 +54,31 @@ void UserInterface::MainMenu()
 
     Common::gotoXY(0, 30);
     cout << endl;
+    return;
 }
 
+// 5 lua chon cua main menu
 void UserInterface::Choice()
 {
     int enter;
     cin >> enter;
-
-    // if (enter == 1)
-    //     Access::Muahang();
-    if (enter == 2)
-        Access::Dangnhap();
+    // Level 1
+    do {
+        switch(enter){
+        case 1:
+            break;
+        case 2:
+        {
+            Menu::SignIn();
+            enter = 5;
+            break;
+        }
+        case 3:
+            break;
+        case 4:
+            break;
+        }
+    } while (enter != 5);
+    if (enter == 5)
+        return;
 }

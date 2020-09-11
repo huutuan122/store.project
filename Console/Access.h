@@ -12,11 +12,16 @@ class Access
 {
 public:
     static void Muahang();
-    static void Dangnhap(){
-        system("cls");
-        UserInterface::Screen();
-        Menu::SignIn();
-    }
+    static void Dangnhap(int &choice);
+    // {
+    //     system("cls");
+    //     UserInterface::Screen();
+    //     Menu::SignIn(choice);
+    //     if (choice == 4){
+    //         UserInterface::MainMenu()
+    //     }
+    // }
+    static void Xemthongtincuahang();
 };
 
 #endif

@@ -14,6 +14,7 @@ private:
     string _password;
     int _point;
     string _level;
+    string _id;
 
 public: // getter - setter
     void setUser(string user) { _user = user; }
@@ -30,6 +31,9 @@ public: // getter - setter
 
     void setLevel(string level) { _level = level; }
     string Level() { return _level; }
+
+    void setID(string id) { _id = id; }
+    string ID() { return _id; }
 
 public:
     Member()
@@ -62,10 +66,13 @@ public:
     string toString();
     void accumulatePoint(unsigned int purchase);
     int usingPoint(bool sure);
-    static void addMember(string fileName, Member *mem);
+    static void addMember();
     void updateMemberInfo(string fileName, Member *&mem);
-    static vector<Member *> readMemberFile(string fileName);
+    static vector<Member *> readMemberFile();
     static void registerMember(Member*& mem);
+    static void saveMemberInfo(vector<Member *> list);
+    static void deleteMember(Member* mem);
+    static void showMemberList();
 };
 
 #endif
