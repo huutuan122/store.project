@@ -330,7 +330,7 @@ void Employee::editInfo() {
 				system("cls");
 				UserInterface::Screen();
 				Sleep(1000);
-				Common::gotoXY(53, 10);
+				Common::gotoXY(45, 10);
 				cout << "Nhap mat khau cu: ";
 				getline(cin, oldpass);
 				if (oldpass != _password){

@@ -4,6 +4,8 @@
 #include "../Member/member.cpp"
 #include "../Employee/Employee.h"
 #include "../Employee/Employee.cpp"
+#include "../System/system.h"
+#include "../System/system.cpp"
 #include <vector>
 #include "Common.h"
 
@@ -35,8 +37,11 @@ void Menu::SignIn() {
 	if (choice == 1){
 		Member::loginasMember();
 	}
-	if (choice == 2){
+	else if (choice == 2){
 		Employee::EmployeeMenu();
+	}
+	else if (choice == 3){
+		Manager::LoginAsManager();
 	}
 	// if (choice == 2);
 	// if (choice == 3);
