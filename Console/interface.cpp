@@ -32,7 +32,7 @@ void UserInterface::Screen()
 void UserInterface::MainMenu()
 {
     Screen();
-    Common::color(1);
+    Common::color(14);
     Common::gotoXY(53, 3);
     cout << "______MENU______";
     Common::gotoXY(40, 6);
@@ -63,4 +63,16 @@ void UserInterface::Choice()
     //     Access::Muahang();
     if (enter == 2)
         Access::Dangnhap();
+    if (enter == 3)
+    {
+        Access::Danhgia();
+        system("cls");
+        UserInterface::MainMenu();
+    }
+    if (enter == 4)
+    {
+        Access::ThongTinCuaHang();
+        system("cls");
+        UserInterface::MainMenu();
+    }
 }
