@@ -17,10 +17,10 @@ public:
 	Date();
 	Date(int, int, int);
 	string toString();
-	Date parse(string);
+	static Date parse(string);
 	bool tryParse(string, Date& date);
 	bool isValid(string);
-	bool isValid(int, int, int);
-	bool isLeapYear(int);
+	static bool isValid(int, int, int);
+	static bool isLeapYear(int);
 };
 #endif // !_DATE_H_

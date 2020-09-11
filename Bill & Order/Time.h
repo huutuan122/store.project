@@ -23,7 +23,7 @@ public:
 	Time(int, int, int);
 	string displayIn24hFormat();
 	string displayIn12hFormat();
-	Time parse(string);
+	static Time parse(string);
 	bool tryParse(string, Time &result);
 	bool isValid(string);
 };

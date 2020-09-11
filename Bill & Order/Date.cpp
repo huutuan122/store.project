@@ -26,7 +26,7 @@ Date::Date(int d, int m, int y) {
 
 string Date::toString() {
 	stringstream out;
-	out << setfill('0') << setw(2) << _day << "/" << setw(2) << _month << "/" << setw(2) << _year << "\n";
+	out << setfill('0') << setw(2) << _day << "/" << setw(2) << _month << "/" << setw(2) << _year;
 	return out.str();
 }
 
