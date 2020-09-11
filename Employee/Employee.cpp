@@ -1,4 +1,10 @@
 #include"Employee.h"
+#include "../Console/Common.h"
+#include "../Console/interface.h" 
+#include <windows.h>
+#include "Time.cpp"
+
+using namespace std;
 
 Employee::Employee(){
 	_monthlyworkhour = 0;
@@ -150,7 +156,7 @@ vector<Employee> Employee::LoadData() {
 	string temp;
 	vector<string> tokens;
 	vector<Employee> list;
-	reader.open("EmployeeData.txt", ios::in);
+	reader.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::in);
 	if (!reader) {
 		cout << "Khong the mo file!";
 		exit;
@@ -167,12 +173,19 @@ vector<Employee> Employee::LoadData() {
 	return list;
 }
 
-int Employee::isAccess(vector<Employee> list) {
+int Employee::isAccess(vector<Employee> list)
+{
 	string username;
 	string password;
+	system("cls");
+	UserInterface::Screen();
+	Common::gotoXY(49, 3);
 	cout << "---------- Dang nhap ----------" << endl;
+	Common::gotoXY(40, 6);
 	cout << "Nhap so dien thoai: ";
 	getline(cin, username);
+	getline(cin, username);
+	Common::gotoXY(40, 8);
 	cout << "Nhap mat khau: ";
 	getline(cin, password);
 	for (int i = 0; i < list.size(); i++) {
@@ -187,7 +200,7 @@ int Employee::isAccess(vector<Employee> list) {
 		else
 			return -1;
 	}
-	
+	return 1;
 }
 
 void Employee::editInfo() {
@@ -195,71 +208,169 @@ void Employee::editInfo() {
 	string newpass;
 	string temp;
 	int choice;
+	system("cls");
+	UserInterface::Screen();
+	Common::gotoXY(46, 6);
 	cout << "---------- Thong tin ca nhan ----------" << endl;
-	cout << "1) Ho va Ten: " << _name << endl;
-	cout << "2) Ngay sinh: " << _dob << endl;
-	cout << "3) So dien thoai: " << _tel << endl;
-	cout << "4) Email: " << _email << endl;
-	cout << "5) Dia chi: " << _address << endl;
-	cout << "6) So gio lam trong thang: " << _monthlyworkhour << endl;
-	cout << "7) Level: " << _level << endl;
-	cout << "8) Mat khau: *********" << endl;
+	Common::gotoXY(40, 10);
+	cout << "1) Ho va Ten: " << _name;
+	Common::gotoXY(40, 12);
+	cout << "2) Ngay sinh: " << _dob ;
+	Common::gotoXY(40, 14);
+	cout << "3) So dien thoai: " << _tel ;
+	Common::gotoXY(40, 16);
+	cout << "4) Email: " << _email ;
+	Common::gotoXY(40, 18);
+	cout << "5) Dia chi: " << _address;
+	Common::gotoXY(40, 20);
+	cout << "6) So gio lam trong thang: " << _monthlyworkhour;
+	Common::gotoXY(40, 22);
+	cout << "7) Level: " << _level;
+	Common::gotoXY(40, 24);
+	cout << "8) Mat khau: *********";
+	Common::gotoXY(35, 26);
+	cout << "Ban muon chinh sua thong tin nao? (Nhap '0' de thoat) ";
 	do {
-		cout << "Ban muon chinh sua thong tin nao? (Nhap '0' de thoat) ";
+	
+		
 		cin >> choice;
 		cin.ignore();
 		switch (choice)
 		{
 		case 1:
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(53, 10);
 			cout << "Nhap Ho va Ten: ";
 			getline(cin, temp);
+			getline(cin, temp);
 			_name = temp;
+			Common::gotoXY(53, 10);
+			Sleep(100);
+			cout << "Da chinh sua thanh cong!";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 2:
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(53, 10);
 			cout << "Nhap ngay sinh: ";
 			getline(cin, temp);
+			getline(cin, temp);
 			_dob = temp;
+			Common::gotoXY(53, 10);
+			Sleep(1000);
+			cout << "Da chinh sua thanh cong!";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 3:
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(53, 10);
 			cout << "Nhap so dien thoai: ";
 			getline(cin, temp);
+			getline(cin, temp);
 			_tel = temp;
+			Common::gotoXY(53, 10);
+			Sleep(1000);
+			cout << "Da chinh sua thanh cong!";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 4:
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(53, 10);
 			cout << "Nhap email: ";
 			getline(cin, temp);
+			getline(cin, temp);
 			_email = temp;
+			Sleep(1000);
+			Common::gotoXY(53, 10);
+			cout << "Da chinh sua thanh cong!";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 5:
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(53, 10);
 			cout << "Nhap dia chi: ";
 			getline(cin, temp);
+			getline(cin, temp);
 			_address = temp;
+			Sleep(1000);
+			Common::gotoXY(53, 10);
+			cout << "Da chinh sua thanh cong!";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 6:
-			cout << "---------- Co lam thi moi co an ----------" << endl;
+			system("cls");
+			UserInterface::Screen();
+			Sleep(1000);
+			Common::gotoXY(53, 10);
+			cout << "---------- Co lam thi moi co an ----------" ;
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 7:
-			cout << "---------- Co lam thi moi co an ----------" << endl;
+			system("cls");
+			UserInterface::Screen();
+			Sleep(1000);
+			Common::gotoXY(53, 10);
+			cout << "---------- Co lam thi moi co an ----------";
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		case 8:
-			cout << "Nhap mat khau cu: ";
-			getline(cin, oldpass);
-			if (oldpass != _password) {
+			do{
+				system("cls");
+				UserInterface::Screen();
+				Sleep(1000);
+				Common::gotoXY(53, 10);
+				cout << "Nhap mat khau cu: ";
+				getline(cin, oldpass);
+				if (oldpass != _password){
+				Common::gotoXY(53, 12);
 				cout << "---------- Mat khau cu khong khop! ----------" << endl;
-				break;
-			}
-			else {
-				cout << "Nhap mat khau moi: ";
-				getline(cin, newpass);
-				cout << "Xac nhan mat khau moi: ";
-				getline(cin, temp);
-				if (newpass != temp) {
-					cout << "---------- Mat khau khong khop ----------" << endl ;
-					break;
 				}
 				else
+					break;
+			} while (oldpass != _password);
+
+			if (oldpass == _password)
+			{
+				Common::gotoXY(40, 14);
+				cout << "Mat khau dung!";
+				Sleep(1000);
+				do{
+					system("cls");
+					UserInterface::Screen();
+					Common::gotoXY(45, 12);
+					cout << "Nhap mat khau moi: ";
+					getline(cin, newpass);
+					Common::gotoXY(45, 14);
+					cout << "Xac nhan mat khau moi: ";
+					getline(cin, temp);
+					if (newpass != temp) {
+						Common::gotoXY(40, 16);
+						cout << "---------- Mat khau khong khop ----------";
+						Sleep(1000);
+					}
+					else
+						break;
+				} while (newpass != temp);
+				if (newpass == temp){
+					Common::gotoXY(40, 24);
+					cout << "Da thay doi mat khau thanh cong!";
 					_password = newpass;
+				}
 			}
+			Common::gotoXY(35, 26);
+			cout << "Nhan 0 de quay lai: ";
 			break;
 		}
 	} while (choice != 0);
@@ -271,23 +382,38 @@ void Employee::EmployeeMenu() {
 	list = Employee::LoadData();
 	int pos = Employee::isAccess(list);
 	if (pos != -1) {
-		cout << "---------- Dang nhap thanh cong! ----------" << endl;
+		UserInterface::Screen();
+		Common::gotoXY(35, 10);
+		cout << "---------- Dang nhap thanh cong! ----------";
 		int choice;
 		
 		do {
-			cout << "---------- MENU ----------" << endl;
-			cout << "1) Xem thong tin ca nhan" << endl;
-			cout << "2) Check in" << endl;
-			cout << "3) Check out" << endl;
-			cout << "4) Tinh luong" << endl;
-			cout << "5) Thoat" << endl;
+			system("cls");
+			UserInterface::Screen();
+			Common::gotoXY(49, 6);
+			cout << "---------- MENU ----------";
+			Common::gotoXY(40, 8);
+			cout << "1) Xem thong tin ca nhan" ;
+			Common::gotoXY(40, 10);
+			cout << "2) Check in" ;
+			Common::gotoXY(40, 12);
+			cout << "3) Check out" ;
+			Common::gotoXY(40, 14);
+			cout << "4) Tinh luong";
+			Common::gotoXY(40, 16);
+			cout << "5) Thoat";
+			Common::gotoXY(38, 18);
 			cout << "Nhap lua chon: ";
 			cin >> choice;
 			cin.ignore();
 			switch (choice) {
 			case 1:
-				if (flag)
-					cout << "---------- Ban da Check in roi ----------" << endl;
+				if (flag){
+					system("cls");
+					UserInterface::Screen();
+					Common::gotoXY(45, 12);
+					cout << "---------- Ban da Check in roi ----------";
+				}
 				else
 					list[pos].editInfo();
 				break;
@@ -302,18 +428,23 @@ void Employee::EmployeeMenu() {
 					list[pos].Leveling();
 					flag = false;
 				}
-				else
-					cout << "---------- Ban chua Check in ----------" << endl;
+				else{
+					Common::gotoXY(45, 12);
+					cout << "---------- Ban chua Check in ----------";
+				}
 				break;
 			case 4:
 				list[pos].calSalary();
+				Common::gotoXY(45, 12);
 				cout << "Luong thang nay cua ban la: " << list[pos].getSalary() << endl;
 				break;
 			}
 		} while (choice != 5);
 	}
-	else
+	else{
+		Common::gotoXY(35, 10);
 		cout << "---------- Sai ten dang nhap hoac mat khau! ----------";
+	}
 	Employee::SaveData(list);
 }
 

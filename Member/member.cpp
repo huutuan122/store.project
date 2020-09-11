@@ -4,19 +4,56 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "../Member/Tokenizer.h"
-
+#include "../Console/interface.h"
+#include "../Console/Common.h"
 
 using namespace std;
 
-void Member::loginasMember(vector<Member *> mem)
+vector<Member *> Member::readMemberFile(string fileName)
 {
+    ifstream f;
+    f.open(fileName);
+    vector<Member *> list;
+    string s;
+    
+    while (!f.eof())
+    {
+        getline(f, s);
+        vector<string> getStr;
+        string sep = " - ";
+        getStr = TokenizerStr::split(s, sep);
+        Member *temp = new Member();
+        temp->setUser(getStr[0]);
+        temp->setPassword(getStr[1]);
+        temp->setName(getStr[2]);
+
+        int point = stoi(getStr[3]);
+        temp->setPoint(point);
+
+        temp->setLevel(getStr[4]);
+
+        list.push_back(temp);
+    }
+    f.close();
+
+    return list;
+}
+
+void Member::loginasMember()
+{
+    vector<Member *> mem = Member::readMemberFile("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt");
     Member *temp = new Member();
     string user, pass;
     do
     {
+        system("cls");
+        UserInterface::Screen();
+        Common::gotoXY(40, 10);
         cout << "Username: ";
         cin >> user;
+        Common::gotoXY(40, 12);
         cout << "Password: ";
         cin >> pass;
         for (auto p : mem)
@@ -30,12 +67,16 @@ void Member::loginasMember(vector<Member *> mem)
 
         if (pass != temp->Password())
         {
+            Common::gotoXY(38, 14);
             cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
             Sleep(1000);
             system("cls");
         }
         else
+        {
+            Common::gotoXY(38, 14);
             cout << "Dang nhap thanh cong! ";
+        }
         Sleep(1000);
 
     } while (pass != temp->Password());
@@ -89,10 +130,11 @@ void Member::addMember(string fileName, Member *mem)
 
 // vector<Member *> Member::readMemberFile(string fileName)
 // {
-    
+
 // }
 
-void Member::registerMember(Member*& mem){
+void Member::registerMember(Member *&mem)
+{
     string s;
     cout << "Nhap ten dang nhap: ";
     cin >> s;
@@ -102,7 +144,7 @@ void Member::registerMember(Member*& mem){
     mem->setPassword(s);
     cout << "Dang nhap thanh cong! " << endl;
     Sleep(1000);
-    
+
     cout << "Nhap ten cua ban: ";
     getline(cin, s);
     getline(cin, s);

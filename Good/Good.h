@@ -69,7 +69,12 @@ public:
 	void moveUp(int position);
 	void moveDown(int position);
 	Good bestSeller();
-	string showList();
+	string showList(){
+		stringstream result;
+		for (auto e : list)
+			result << e.name() << endl;
+		return result.str();
+	}
 	void sortAZ();
 	void sortZA();
 	void sortByPriceAscending();

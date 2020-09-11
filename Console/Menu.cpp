@@ -2,7 +2,11 @@
 #include "interface.h"
 #include "../Member/member.h"
 #include "../Member/member.cpp"
+#include "../Employee/Employee.h"
+#include "../Employee/Employee.cpp"
 #include <vector>
+#include "Common.h"
+
 
 Menu::Menu() {
 	_hotline = "";
@@ -28,15 +32,20 @@ void Menu::SignIn() {
 	cout << "Chon mot trong cac muc tren: ";
 	int choice;
 	cin >> choice;
-	// if (choice == 1)
+	if (choice == 1){
+		Member::loginasMember();
+	}
+	if (choice == 2){
+		Employee::EmployeeMenu();
+	}
 	// if (choice == 2);
 	// if (choice == 3);
 }
 
-// void Menu::ViewGoodList() {
-// 	cout << "Good list:\n";
-// 	cout << _data.showList();
-// }
+void Menu::ViewGoodList() {
+	cout << "Good list:\n";
+	cout << _data.showList();
+}
 
 void Menu::Order() {
 	cout << "Order:\n";// Nhap ham order vao day

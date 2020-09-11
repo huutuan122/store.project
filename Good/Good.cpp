@@ -127,11 +127,9 @@ Good GoodList::bestSeller() {
 	return result;
 }
 
-string GoodList::showList() {
-	stringstream result;
-	for (auto e : list)result << e.name() << endl;
-	return result.str();
-}
+// string GoodList::showList() {
+	
+// }
 
 void GoodList::sortAZ() {
 	sort(list.begin(), list.end(), compNameAZ);
