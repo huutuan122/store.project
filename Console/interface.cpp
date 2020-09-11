@@ -33,8 +33,7 @@ void UserInterface::MainMenu() // Level 1
 {
     system("cls");
     Screen();
-    
-    Common::color(1);
+    Common::color(14);
     Common::gotoXY(53, 3);
     cout << "______MENU______";
     Common::gotoXY(40, 6);
@@ -63,8 +62,10 @@ void UserInterface::Choice()
     int enter;
     cin >> enter;
     // Level 1
-    do {
-        switch(enter){
+    do
+    {
+        switch (enter)
+        {
         case 1:
             break;
         case 2:
@@ -74,8 +75,14 @@ void UserInterface::Choice()
             break;
         }
         case 3:
+            Access::Danhgia();
+            system("cls");
+            UserInterface::MainMenu();
             break;
         case 4:
+            Access::ThongTinCuaHang();
+            system("cls");
+            UserInterface::MainMenu();
             break;
         }
     } while (enter != 5);

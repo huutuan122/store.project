@@ -12,16 +12,30 @@ class Access
 {
 public:
     static void Muahang();
-    static void Dangnhap(int &choice);
-    // {
-    //     system("cls");
-    //     UserInterface::Screen();
-    //     Menu::SignIn(choice);
-    //     if (choice == 4){
-    //         UserInterface::MainMenu()
-    //     }
-    // }
-    static void Xemthongtincuahang();
+    static void Dangnhap()
+    {
+        system("cls");
+        UserInterface::Screen();
+        Menu::SignIn();
+    }
+    static void Danhgia()
+    {
+        system("cls");
+        UserInterface::Screen();
+        Menu menu;
+        menu.ViewFeedBack();
+        Common::gotoXY(1, 27);
+        system("pause");
+    }
+    static void ThongTinCuaHang()
+    {
+        system("cls");
+        UserInterface::Screen();
+        Menu menu;
+        menu.ViewStoreInfo();
+        Common::gotoXY(1, 27);
+        system("pause");
+    }
 };
 
 #endif
