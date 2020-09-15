@@ -155,7 +155,7 @@ void GoodList::sortByRateDescending() {
 	sort(list.begin(), list.end(), compRateDes);
 }
 
-void GoodList::sortByPopulartity() {
+void GoodList::sortByPopular() {
 	sort(list.begin(), list.end(), compBestSeller);
 }
 
@@ -190,11 +190,11 @@ void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRat
 	file.open(fileGood);
 	file << list.size() << endl;
 	for (auto good : list.list)
-		file << good.name() << "-"
-		<< good.code() << "-"
-		<< good.price() << "-"
-		<< good.amount() << "-"
-		<< good.description() << "-"
+		file << good.name() << " - "
+		<< good.code() << " - "
+		<< good.price() << " - "
+		<< good.amount() << " - "
+		<< good.description() << " - "
 		<< good.type() << endl;
 	file.close();
 	file.open(fileComment);
@@ -202,7 +202,7 @@ void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRat
 	for (auto good : list.list) {
 		file << good.code();
 		vector<string> cmt = good.comment();
-		for (auto e : cmt)file << "-" << e;
+		for (auto e : cmt)file << " - " << e;
 		file << endl;
 	}
 	file.close();
@@ -211,7 +211,7 @@ void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRat
 	for (auto good : list.list) {
 		file << good.code();
 		vector<float> rate = good.rate();
-		for (auto e : rate)file << "-" << e;
+		for (auto e : rate)file << " - " << e;
 		file << endl;
 	}
 	file.close();
@@ -240,7 +240,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, " - ");
 		Good newGood(info[0], info[1], stof(info[2]), stoi(info[3]), info[4], info[5]);
 		result.add(newGood);
 	}
@@ -253,7 +253,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n2; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, " - ");
 		for (int k = 0; k < result.list.size(); k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {
@@ -271,7 +271,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n3; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, " - ");
 		for (int k = 0; k < result.list.size();k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {

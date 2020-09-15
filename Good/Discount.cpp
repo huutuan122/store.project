@@ -10,7 +10,7 @@ void Discount::UpdateDiscountListFromFile(string filename) {
 	for (int i = 0; i < n; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = Tokenizer::splitString(line, " - ");
 		_discountList[info[0]] = info[1];
 	}
 	file.close();
