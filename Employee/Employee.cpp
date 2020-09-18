@@ -6,6 +6,7 @@
 #include "Time.cpp"
 #include "../Member/Tokenizer.h"
 
+// Constructor
 Employee::Employee(string id, string name, string dob, string tel, string email, string add, double workhour, double totalhour, int level, string pass)
 {
 	_id = id;
@@ -34,6 +35,7 @@ Employee::Employee()
 	_totalworkhour = 0;
 }
 
+// Nhóm hàm tính thời gian làm và tính lương
 void Employee::CheckIn(Employee *&a)
 {
 	a->_begin.getTime();
@@ -70,7 +72,7 @@ void Employee::calWorkHour(Employee *&a)
 
 void Employee::Leveling(Employee *&a)
 {
-	a->_level = a->_totalworkhour / 1825;
+	a->_level = a->_totalworkhour / 200;
 	updateEmployeeInfo(a);
 }
 
@@ -87,6 +89,7 @@ void Employee::calSalary(Employee *&a)
 		return;
 }
 
+// Hàm chức năng
 string Employee::toString()
 {
 	stringstream writer;
@@ -97,25 +100,154 @@ string Employee::toString()
 	return writer.str();
 }
 
-void Employee::deleteEmployee(Employee *emp)
+// Hàm giao diện
+void Employee::EmployeeMenu(Employee *&a)
 {
-	int i = 0;
-	vector<Employee *> list = Employee::LoadData();
-	for (auto p : list)
+	int choice;
+	bool flag = false;
+	do
 	{
-		if (p->ID() == emp->ID())
+		system("cls");
+		UserInterface::Screen();
+		Common::gotoXY(49, 6);
+		cout << "---------- MENU NHAN VIEN ----------";
+		Common::gotoXY(40, 8);
+		cout << "1)     Xem thong tin ca nhan";
+		Common::gotoXY(40, 10);
+		cout << "2)     Check in";
+		Common::gotoXY(40, 12);
+		cout << "3)     Check out";
+		Common::gotoXY(40, 14);
+		cout << "4)     Tinh luong";
+		Common::gotoXY(40, 16);
+		cout << "0)     Thoat";
+		Common::gotoXY(38, 18);
+		cout << "Nhap lua chon: ";
+		cin >> choice;
+		switch (choice)
 		{
-			list.erase(list.begin() + i);
+		case 1:
+		{
+			showEmployeeInfo(a);
+			break;
 		}
-		i++;
-	}
+		case 2:
+		{
+			system("cls");
+			UserInterface::Screen();
+			Employee::CheckIn(a);
+			flag = true;
+			break;
+		}
+		case 3:
+		{
+			system("cls");
+			UserInterface::Screen();
+			if (flag)
+			{
+				Employee::CheckOut(a);
+				Employee::calWorkHour(a);
+				Employee::Leveling(a);
+				flag = false;
+			}
+			else
+			{
+				Common::gotoXY(45, 12);
+				cout << "---------- Ban chua Check in ----------";
+				Sleep(1000);
+			}
 
-	for (int i = 0; i < list.size(); i++)
+			break;
+		}
+		case 4:
+		{
+			system("cls");
+			UserInterface::Screen();
+			Employee::calSalary(a);
+			break;
+		}
+		}
+	} while (choice != 0);
+	if (choice == 0)
 	{
-		list[i]->setID(to_string(i + 1));
+		Menu::SignIn();
+	}
+}
+
+void Employee::loginAsEmployee()
+{
+	vector<Employee *> list = LoadData();
+	Employee *temp = new Employee();
+	string user, pass;
+	do
+	{
+		system("cls");
+		UserInterface::Screen();
+		Common::gotoXY(49, 6);
+		cout << "---------- DANG NHAP NHAN VIEN ----------";
+		Common::gotoXY(40, 10);
+		cout << "So dien thoai: ";
+		cin >> user;
+		Common::gotoXY(40, 12);
+		cout << "Mat khau: ";
+		cin >> pass;
+		for (auto p : list)
+		{
+			if (user == p->Tel())
+			{
+				temp->setAddress(p->Address());
+				temp->setDOB(p->DOB());
+				temp->setEmail(p->Email());
+				temp->setID(p->ID());
+				temp->setName(p->Name());
+				temp->setPassword(p->Password());
+				temp->setTel(p->Tel());
+				temp->_level = p->_level;
+				temp->_monthlyworkhour = p->_monthlyworkhour;
+				temp->_totalworkhour = p->_totalworkhour;
+				temp->_salary = p->_salary;
+			}
+		}
+
+		if (pass != temp->Password())
+		{
+			Common::gotoXY(38, 14);
+			cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
+			Sleep(1000);
+			system("cls");
+		}
+		else
+		{
+			Common::gotoXY(49, 14);
+			cout << "Dang nhap thanh cong! ";
+			Sleep(1000);
+		}
+		Sleep(1000);
+
+	} while (pass != temp->Password());
+
+	EmployeeMenu(temp);
+}
+
+// Hàm đọc file và xuất file ra màn hình
+vector<Employee *> Employee::LoadData()
+{
+	fstream reader;
+	string temp;
+	vector<string> tokens;
+	vector<Employee *> list;
+	reader.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::in);
+
+	while (!reader.eof())
+	{
+		getline(reader, temp);
+		tokens = TokenizerStr::split(temp, "-");
+		Employee *person = new Employee(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], stod(tokens[6]), stod(tokens[7]), stoi(tokens[8]), tokens[9]);
+		list.push_back(person);
 	}
 
-	SaveEmployeeInfo(list);
+	reader.close();
+	return list;
 }
 
 void Employee::showEmployeeData()
@@ -273,152 +405,26 @@ void Employee::showEmployeeInfo(Employee *&employee)
 		return;
 }
 
-void Employee::EmployeeMenu(Employee *&a)
+// Hàm quản lí nhân viên
+void Employee::deleteEmployee(Employee *emp)
 {
-	int choice;
-	bool flag = false;
-	do
+	int i = 0;
+	vector<Employee *> list = Employee::LoadData();
+	for (auto p : list)
 	{
-		system("cls");
-		UserInterface::Screen();
-		Common::gotoXY(49, 6);
-		cout << "---------- MENU NHAN VIEN ----------";
-		Common::gotoXY(40, 8);
-		cout << "1)     Xem thong tin ca nhan";
-		Common::gotoXY(40, 10);
-		cout << "2)     Check in";
-		Common::gotoXY(40, 12);
-		cout << "3)     Check out";
-		Common::gotoXY(40, 14);
-		cout << "4)     Tinh luong";
-		Common::gotoXY(40, 16);
-		cout << "0)     Thoat";
-		Common::gotoXY(38, 18);
-		cout << "Nhap lua chon: ";
-		cin >> choice;
-		switch (choice)
+		if (p->ID() == emp->ID())
 		{
-		case 1:
-		{
-			showEmployeeInfo(a);
-			break;
+			list.erase(list.begin() + i);
 		}
-		case 2:
-		{
-			system("cls");
-			UserInterface::Screen();
-			Employee::CheckIn(a);
-			flag = true;
-			break;
-		}
-		case 3:
-		{
-			system("cls");
-			UserInterface::Screen();
-			if (flag)
-			{
-				Employee::CheckOut(a);
-				Employee::calWorkHour(a);
-				Employee::Leveling(a);
-				flag = false;
-			}
-			else
-			{
-				Common::gotoXY(45, 12);
-				cout << "---------- Ban chua Check in ----------";
-				Sleep(1000);
-			}
-
-			break;
-		}
-		case 4:
-		{
-			system("cls");
-			UserInterface::Screen();
-			Employee::calSalary(a);
-			break;
-		}
-		}
-	} while (choice != 0);
-	if (choice == 0)
-	{
-		Menu::SignIn();
-	}
-}
-
-vector<Employee *> Employee::LoadData()
-{
-	fstream reader;
-	string temp;
-	vector<string> tokens;
-	vector<Employee *> list;
-	reader.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::in);
-
-	while (!reader.eof())
-	{
-		getline(reader, temp);
-		tokens = TokenizerStr::split(temp, "-");
-		Employee *person = new Employee(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], stod(tokens[6]), stod(tokens[7]), stoi(tokens[8]), tokens[9]);
-		list.push_back(person);
+		i++;
 	}
 
-	reader.close();
-	return list;
-}
-
-void Employee::loginAsEmployee()
-{
-	vector<Employee *> list = LoadData();
-	Employee *temp = new Employee();
-	string user, pass;
-	do
+	for (int i = 0; i < list.size(); i++)
 	{
-		system("cls");
-		UserInterface::Screen();
-		Common::gotoXY(49, 6);
-		cout << "---------- DANG NHAP NHAN VIEN ----------";
-		Common::gotoXY(40, 10);
-		cout << "So dien thoai: ";
-		cin >> user;
-		Common::gotoXY(40, 12);
-		cout << "Mat khau: ";
-		cin >> pass;
-		for (auto p : list)
-		{
-			if (user == p->Tel())
-			{
-				temp->setAddress(p->Address());
-				temp->setDOB(p->DOB());
-				temp->setEmail(p->Email());
-				temp->setID(p->ID());
-				temp->setName(p->Name());
-				temp->setPassword(p->Password());
-				temp->setTel(p->Tel());
-				temp->_level = p->_level;
-				temp->_monthlyworkhour = p->_monthlyworkhour;
-				temp->_totalworkhour = p->_totalworkhour;
-				temp->_salary = p->_salary;
-			}
-		}
+		list[i]->setID(to_string(i + 1));
+	}
 
-		if (pass != temp->Password())
-		{
-			Common::gotoXY(38, 14);
-			cout << "Sai ten dang nhap hoac sai mat khau, xin moi nhap lai!! " << endl;
-			Sleep(1000);
-			system("cls");
-		}
-		else
-		{
-			Common::gotoXY(49, 14);
-			cout << "Dang nhap thanh cong! ";
-			Sleep(1000);
-		}
-		Sleep(1000);
-
-	} while (pass != temp->Password());
-
-	EmployeeMenu(temp);
+	SaveEmployeeInfo(list);
 }
 
 void Employee::updateEmployeeInfo(Employee *a)

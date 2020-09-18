@@ -1,6 +1,16 @@
 #include "../Employee/Time.h"
 
-Time::Time() {}
+Time::Time()
+{
+	time_t info = time(NULL);
+	tm *now = localtime(&info);
+	_hour = now->tm_hour;
+	_minute = now->tm_min;
+	_second = now->tm_sec;
+	_day = now->tm_mday;
+	_month = now->tm_mon + 1;
+	_year = now->tm_year + 1900;
+}
 
 void Time::getTime()
 {
@@ -11,8 +21,8 @@ void Time::getTime()
 	_minute = now->tm_min;
 	_second = now->tm_sec;
 	_day = now->tm_mday;
-	_month = now->tm_mon;
-	_year = now->tm_year;
+	_month = now->tm_mon + 1;
+	_year = now->tm_year + 1900;
 }
 
 Time::Time(int hour, int minute, int second)

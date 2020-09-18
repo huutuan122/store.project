@@ -6,9 +6,10 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "../Discount/Discount.h"
 
 using namespace std;
-
+// Hàm chức năng
 string Manager::toString()
 {
     stringstream writer;
@@ -46,6 +47,7 @@ vector<Manager *> Manager::readManagerFile(string fileName)
     return list;
 }
 
+// Hàm giao diện quản lí
 void Manager::LoginAsManager()
 {
     vector<Manager *> manager = readManagerFile("E:\\VSC\\C++\\Project Store\\github\\System\\manager.txt");
@@ -104,7 +106,7 @@ void Manager::ManagerMenu()
     Common::gotoXY(40, 12);
     cout << "3.   Doanh thu thang";
     Common::gotoXY(40, 14);
-    cout << "4.   Danh muc san pham";
+    cout << "4.   Them khuyen mai";
     Common::gotoXY(40, 16);
     cout << "0.   Exit";
 
@@ -119,27 +121,29 @@ void Manager::ManagerMenu()
         {
         case 1:
         {
-            EmployeeSystem();
+            Manager::EmployeeSystem();
             choice = 0;
             break;
         }
 
         case 2:
         {
-            MemberSystem();
+            Manager::MemberSystem();
             choice = 0;
             break;
         }
 
         case 3:
         {
-            TotalIncome();
+            Manager::TotalIncome();
             choice = 0;
             break;
         }
 
         case 4:
         {
+            Discount::addVoucher();
+            choice = 0;
             break;
         }
 
@@ -151,9 +155,9 @@ void Manager::ManagerMenu()
     } while (choice != 0);
 }
 
+// Hàm công việc quản lí
 void Manager::EmployeeSystem()
 {
-
     int choice;
 
     system("cls");
@@ -179,7 +183,7 @@ void Manager::EmployeeSystem()
         {
             system("cls");
             UserInterface::Screen();
-            vector<Employee*> list = Employee::LoadData();
+            vector<Employee *> list = Employee::LoadData();
             Employee::SignUp(list);
             Common::gotoXY(35, 20);
             cout << "Them nhan vien thanh cong!";
@@ -192,7 +196,7 @@ void Manager::EmployeeSystem()
         {
             system("cls");
             UserInterface::Screen();
-            vector<Employee*> list = Employee::LoadData();
+            vector<Employee *> list = Employee::LoadData();
             Employee::showEmployeeData();
             Employee temp;
             string i;

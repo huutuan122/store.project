@@ -11,12 +11,14 @@ using namespace std;
 class Menu
 {
 private:
-	GoodList _data;
 	string _hotline;
 	string _address;
 	string _moreInfo;
+	string _gmail;
 	Time time;
 	vector<string> _feedback;
+public: // Lưu lại thông tin danh sách hàng
+	GoodList data;
 
 public:
 	string hotline() { return _hotline; }
@@ -26,20 +28,28 @@ public:
 	void setAddress(string value) { _address = value; }
 	void setMoreInfo(string value) { _moreInfo = value; }
 
-public:
+public: // Constructor
 	Menu();
 	Menu(string hotline, string address, string moreInfo);
-	static void SignIn();
-	void ViewGoodList();
-	void Order();
-	void ViewStoreInfo();
-	void ViewFeedBack();
-	void Exit();
-	void addFeedback(string feedback, Time t);
 
+public: // Methods
+// Nhóm hàm ở Menu chính
 	static void Danhgia();
 	static void Thongtincuahang();
-	static void Muahang();
+	static void SignIn();
+
+// Hàm ở phần mua hàng của member (mục SignIn thứ nhất, trong hàm SignIn phía trên)
+	static void Muahang(string name);
+	void ViewGoodList();
+	static void Order(string customerName, string goodName, float money);
+
+// Hàm đọc thông tin cửa hàng từ file và in ra màn hình
+	void ViewStoreInfo();
+
+// Hàm đọc và ghi lại nhận xét của người dùng
+	static vector<string> readFeedbackFile();
+	void ViewFeedBack();
+	void addFeedback(string feedback, Time t);
 };
 
 #endif // !_MENU_

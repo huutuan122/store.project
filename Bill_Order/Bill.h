@@ -33,13 +33,10 @@ public:
 };
 
 class BillFile {
-private:
-	string _fileName;
 public:
-	BillFile(string name) { _fileName = name + ".txt"; }
-	void write(BillStore myBill);
-	BillStore read();
-	void deleteBill(string customerName);
+	static void write(BillStore myBill);
+	static BillStore read();
+	static void deleteBill(string customerName);
 };
 
 #endif // !_BILL_H_

@@ -1,7 +1,7 @@
 #ifndef _ORDER_H_
 #define _ORDER_H_
 #include "Date.h"
-#include "Time.h"
+#include "../Bill_Order/Time.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -49,13 +49,10 @@ public:
 };
 
 class OrderFile {
-private:
-	string _fileName;
 public:
-	void write(OrderStore orderList);
-	OrderStore read();
-	void deleteOrder(string ID);
-	OrderFile(string name) { _fileName = name + ".txt"; }
+	static void write(OrderStore orderList);
+	static OrderStore read();
+	static void deleteOrder(string ID);
 };
 
 #endif // !_ORDER_H_

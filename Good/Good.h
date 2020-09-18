@@ -1,14 +1,15 @@
 #pragma once
-#include<iostream>
-#include<vector>
-#include<sstream>
-#include<string>
-#include<map>
-#include<algorithm>
-#include<fstream>
+#include <iostream>
+#include <vector>
+#include <sstream>
+#include <string>
+#include <map>
+#include <algorithm>
+#include <fstream>
 using namespace std;
 
-class Good {
+class Good
+{
 private:
 	string _name;
 	string _code;
@@ -19,6 +20,7 @@ private:
 	string _description;
 	string _type;
 	int _quantitySold;
+
 public:
 	string name() { return _name; }
 	string code() { return _code; }
@@ -36,6 +38,7 @@ public:
 	void setQuantitySold(int value) { _quantitySold = value; }
 	void setDescription(string value) { _description = value; }
 	void setType(string value) { _type = value; }
+
 public:
 	Good();
 	Good(string name, string code, float price, int amount, string description, string type);
@@ -50,9 +53,11 @@ public:
 	string status();
 };
 
-class GoodList {
+class GoodList
+{
 public:
 	vector<Good> list;
+
 public:
 	static bool compNameAZ(Good a, Good b);
 	static bool compNameZA(Good a, Good b);
@@ -69,7 +74,8 @@ public:
 	void moveUp(int position);
 	void moveDown(int position);
 	Good bestSeller();
-	string showList(){
+	string showList()
+	{
 		stringstream result;
 		for (auto e : list)
 			result << e.name() << endl;

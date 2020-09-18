@@ -103,7 +103,7 @@ void OrderStore::displayAllOrder() {
 
 //OrderFile's Class
 void OrderFile::write(OrderStore orderList) {
-	ofstream outputFile(_fileName, ios::app);
+	ofstream outputFile("Order.txt", ios::app);
 	for (auto& order : orderList._list) {
 		outputFile << '\n' << order.toString(1);
 		outputFile.flush();
@@ -114,7 +114,7 @@ void OrderFile::write(OrderStore orderList) {
 OrderStore OrderFile::read() {
 	OrderStore list;
 	string line, id, name, customerName; double price; int amount; Date date; Time time;
-	ifstream inputFile(_fileName);
+	ifstream inputFile("Order.txt");
 
 	getline(inputFile, line);
 	while (!inputFile.eof())
@@ -131,7 +131,7 @@ void OrderFile::deleteOrder(string ID) {
 	OrderStore list;
 	list = read();
 	list.deleteAnOrder(ID);
-	ofstream outputFile(_fileName);
+	ofstream outputFile("Order.txt");
 	for (auto& order : list._list) {
 		outputFile << '\n' << order.toString(1);
 		outputFile.flush();

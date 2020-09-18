@@ -23,7 +23,7 @@ public:
 	string toString()
 	{
 		stringstream out;
-		out << _day << "/" << _month << "/" << _year
+		out << _day << "/" << _month << "/" << _year << " - "
 			<< _hour << ":" << _minute << ":" << _second;
 		return out.str();
 	}

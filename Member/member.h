@@ -27,7 +27,7 @@ public: // getter - setter
 
     string Password() { return _password; }
     void setPassword(string value) { _password = value; }
-    
+
     void setPoint(int point) { _point = point; }
     int Point() { return _point; }
 
@@ -37,7 +37,7 @@ public: // getter - setter
     void setID(string id) { _id = id; }
     string ID() { return _id; }
 
-public:
+public: // Constructor
     Member()
     {
         _user = "";
@@ -65,20 +65,37 @@ public:
             _level = "Diamond";
     }
 
-public:
-    static void loginasMember();
+public: // Hàm chức năng
     string toString();
-    static void accumulatePoint(unsigned int purchase , Member*& member);
-    int usingPoint(bool sure);
+
+public: // Nhóm hàm quản lí thành viên
+    // Xoá thành viên
+    static void deleteMember(Member *mem);
+    // Thêm thành viên
     static void addMember();
-    static void updateMemberInfo(Member *mem);
-    static vector<Member *> readMemberFile();
-    static void registerMember(Member*& mem);
+    // Lưu danh sách thành viên
     static void saveMemberInfo(vector<Member *> list);
-    static void deleteMember(Member* mem);
+    // Sửa thông tin thành viên
+    static void updateMemberInfo(Member *mem);
+
+public: // Nhóm hàm quyền lợi thành viên
+    static void accumulatePoint(unsigned int purchase, Member *&member);
+    int usingPoint(bool sure);
+
+public: // Nhóm hàm đọc và in màn hình từ file
+    static vector<Member *> readMemberFile();
+    // Dành cho một người cụ thể
+    static void showMemberInfo(Member *&user);
+    // Dành cho quản lí
     static void showMemberList();
-    static void MemberMenu(Member*& user);
-    static void showMemberInfo(Member*& user);
+
+public: // Nhóm hàm đăng nhập và giao diện
+    // Đăng nhập với tư cách hội viên
+    static void loginasMember();
+    // Đăng kí hội viên
+    static void registerMember(Member *&mem);
+    // Giao diện của hội viên
+    static void MemberMenu(Member *&user);
 };
 
 #endif

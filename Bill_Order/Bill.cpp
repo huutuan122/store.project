@@ -112,7 +112,7 @@ void BillStore::deleteAllBill()
 
 void BillFile::write(BillStore myBill)
 {
-	ofstream outputFile(_fileName, ios::app);
+	ofstream outputFile("Bill.txt", ios::app);
 	for (auto& order : myBill._list) {
 		outputFile << '\n' << order.toString("FILE");
 		outputFile.flush();
@@ -127,7 +127,7 @@ BillStore BillFile::read()
 	string sCustomerName, line;
 	vector<string> itemsList; int total;
 
-	ifstream inputFile(_fileName);
+	ifstream inputFile("Bill.txt");
 
 	getline(inputFile, line);
 	while (!inputFile.eof())
@@ -145,7 +145,7 @@ void BillFile::deleteBill(string customerName)
 	BillStore myBill;
 	myBill = read();
 	myBill.deleteABill(customerName);
-	ofstream outputFile(_fileName);
+	ofstream outputFile("Bill.txt");
 	for (auto& order : myBill._list) {
 		outputFile << '\n' << order.toString("FILE");
 		outputFile.flush();

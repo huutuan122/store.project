@@ -1,12 +1,13 @@
 #include "interface.h"
 #include "Menu.h"
-#include "Access.h"
+#include "Menu.cpp"
 #include "Common.h"
 #include <Windows.h>
 #include <iostream>
 
 using namespace std;
 
+// Ve khung cho Console
 void UserInterface::Screen()
 {
     Common::color(9);
@@ -29,6 +30,9 @@ void UserInterface::Screen()
     }
 }
 
+
+
+// Menu chinh khi nguoi dung khoi chay
 void UserInterface::MainMenu() // Level 1
 {
     system("cls");
@@ -37,13 +41,13 @@ void UserInterface::MainMenu() // Level 1
     Common::gotoXY(53, 3);
     cout << "______MENU______";
     Common::gotoXY(40, 6);
-    cout << "1.   Mua hang";
+    cout << "1.   Thong tin cua hang";
     Common::gotoXY(40, 8);
     cout << "2.   Dang nhap";
     Common::gotoXY(40, 10);
     cout << "3.   Danh gia";
     Common::gotoXY(40, 12);
-    cout << "4.   Thong tin cua hang";
+    cout << "4.   Dang ki hoi vien";
     Common::gotoXY(40, 14);
     cout << "5.   Thoat";
 
@@ -67,7 +71,7 @@ void UserInterface::Choice()
         switch (enter)
         {
         case 1:
-            Access::Muahang();
+            Menu::Thongtincuahang();
             enter = 5;
             break;
         case 2:
@@ -76,18 +80,21 @@ void UserInterface::Choice()
             enter = 5;
             break;
         }
-        case 3:
+        case 3:{
             Menu::Danhgia();
-            system("cls");
-            enter = 5;
-            break;
-        case 4:
-            Menu::Thongtincuahang();
-            system("cls");
             enter = 5;
             break;
         }
+        case 4:
+        {
+            Member *mem = new Member();
+            Member::registerMember(mem);
+
+            enter = 5;
+            break;
+        }
+        }
     } while (enter != 5);
     if (enter == 5)
-        exit(0);
+        return;
 }
