@@ -79,7 +79,7 @@ public:
 	void sortZA();
 	void sortByPriceAscending();
 	void sortByPriceDescending();
-	void sortByPopulartity();
+	void sortByPopular();
 	void sortByRateAscending();
 	void sortByRateDescending();
 	vector<Good> search(string GoodName);
