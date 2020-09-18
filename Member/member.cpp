@@ -8,8 +8,110 @@
 #include "../Member/Tokenizer.h"
 #include "../Console/interface.h"
 #include "../Console/Common.h"
+#include "../Discount/Discount.cpp"
+
+
 
 using namespace std;
+
+void Member::showMemberInfo(Member*& member){
+    int choice;
+    
+    do{
+        system("cls");
+        UserInterface::Screen();
+        Common::gotoXY(49, 6);
+        cout << "---------- THONG TIN THANH VIEN ----------";
+        Common::gotoXY(36, 10);
+        cout << "1)     ID: " << member->ID();
+        Common::gotoXY(36, 12);
+        cout << "2)     Ten hoi vien: " << member->Name();
+        Common::gotoXY(36, 14);
+        cout << "3)     Ten dang nhap: " << member->user();
+        Common::gotoXY(36, 16);
+        cout << "4)     Mat khau: " << member->Password();
+        Common::gotoXY(36, 18);
+        cout << "5)     Diem hoi vien: " << member->Point();
+        Common::gotoXY(36, 20);
+        cout << "6)     Hang hoi vien: " << member->Level();
+        Common::gotoXY(30, 24);
+        cout << "Ban muon chinh sua phan nao? Chon mot muc hoac nhan '0' de quay lai: ";
+        cin >> choice;
+
+        switch(choice){
+            case 1:{
+                Common::gotoXY(40, 26);
+                cout << "Khong chinh sua ID duoc!";
+                Sleep(1000);
+                break;
+            }
+            case 2: {
+                system("cls");
+                UserInterface::Screen();
+                Common::gotoXY(30, 14);
+                string s;
+                cout << "Nhap ten ban muon chinh sua: ";
+                getline(cin, s);
+                getline(cin, s);
+                Common::gotoXY(40, 26);
+                cout << "Sua ten thanh cong!";
+                member->setName(s);
+                Sleep(1000);
+                break;
+            }
+            case 3:{
+                Common::gotoXY(40, 26);
+                cout << "Khong chinh sua ten dang nhap duoc!";
+                Sleep(1000);
+                break;
+            }
+            case 4:{
+                system("cls");
+                UserInterface::Screen();
+                Common::gotoXY(30, 14);
+                string s;
+                cout << "Nhap mat khau muon chinh sua: ";
+                cin >> s;
+                Common::gotoXY(40, 26);
+                cout << "Sua mat khau thanh cong!";
+                member->setPassword(s);
+                Sleep(1000);
+                break;
+            }
+            case 5:{
+                Common::gotoXY(40, 26);
+                cout << "Khong chinh sua diem hoi vien duoc!";
+                Sleep(1000);
+                break;
+
+            }
+            case 6: {
+                Common::gotoXY(40, 26);
+                cout << "Khong chinh sua hang hoi vien duoc!";
+                Sleep(1000);
+                break;
+            }
+        }
+    } while (choice != 0);
+    updateMemberInfo(member);
+    if (choice == 0)
+        return;
+}
+
+void Member::updateMemberInfo(Member* member){
+    vector<Member *> list = readMemberFile();
+    for (auto p: list){
+        if (p->user() == member->user()){
+            p->setID(member->ID());
+            p->setLevel(member->Level());
+            p->setName(member->Name());
+            p->setPassword(member->Password());
+            p->setPoint(member->Point());
+        }
+    }
+
+    saveMemberInfo(list);
+}
 
 void Member::saveMemberInfo(vector<Member*> list){
     ofstream f;
@@ -64,6 +166,8 @@ void Member::loginasMember()
     {
         system("cls");
         UserInterface::Screen();
+        Common::gotoXY(49, 6);
+        cout << "---------- DANG NHAP HOI VIEN ----------";
         Common::gotoXY(40, 10);
         cout << "Username: ";
         cin >> user;
@@ -76,6 +180,10 @@ void Member::loginasMember()
             {
                 temp->setUser(p->user());
                 temp->setPassword(p->Password());
+                temp->setID(p->ID());
+                temp->setLevel(p->Level());
+                temp->setName(p->Name());
+                temp->setPoint(p->Point());
             }
         }
 
@@ -88,14 +196,57 @@ void Member::loginasMember()
         }
         else
         {
-            Common::gotoXY(38, 14);
+            Common::gotoXY(49, 14);
             cout << "Dang nhap thanh cong! ";
         }
         Sleep(1000);
 
     } while (pass != temp->Password());
 
+    Member::MemberMenu(temp);
+
     // system("cls");
+}
+
+void Member::MemberMenu(Member*& user){
+
+    int choice;
+    
+    do{
+        system("cls");
+        UserInterface::Screen();
+        Common::gotoXY(49, 6);
+        cout << "---------- MENU THANH VIEN ----------";
+        Common::gotoXY(40, 8);
+        cout << "1)     Mua hang";
+        Common::gotoXY(40, 10);
+        cout << "2)     Xem uu dai";
+        Common::gotoXY(40, 12);
+        cout << "3)     Xem thong tin hoi vien";
+        Common::gotoXY(40, 14);
+        cout << "0)     Thoat";
+        Common::gotoXY(38, 18);
+        cout << "Nhap lua chon: ";
+        cin >> choice;
+        switch(choice){
+            case 1:{
+              
+                
+                break;
+            }
+            case 2:{
+                Discount::showVoucher();
+                break;
+            }
+            case 3: {
+                Member::showMemberInfo(user);
+                break;
+            }
+        }
+    } while (choice !=0);
+    if (choice == 0){
+        Menu::SignIn();
+    }
 }
 
 string Member::toString()
@@ -106,15 +257,17 @@ string Member::toString()
     return writer.str();
 }
 
-void Member::accumulatePoint(unsigned int purchase)
+void Member::accumulatePoint(unsigned int purchase, Member*& member)
 {
-    _point = purchase / 10000 * 1;
-    if (_point > 100 && _point < 200)
-        _level = 'S';
-    else if (_point > 200 && _point < 300)
-        _level = 'G';
+    int point = purchase / 10000 * 1;
+    member->setPoint(member->Point() + point);
+    point = member->Point();
+    if (point > 100 && point < 200)
+        member->setLevel("Silver");
+    else if (point > 200 && point < 300)
+        member->setLevel("Gold");
     else
-        _level = 'D';
+        member->setLevel("Diamond");
 }
 
 int Member::usingPoint(bool sure)

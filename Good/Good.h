@@ -88,8 +88,3 @@ public:
 	static GoodList readGoodListFromFile(string fileGood, string fileRate, string fileComment);
 	static void saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment);
 };
-
-class Tokenizer {
-public:
-	static vector<string> splitString(string haystack, string needle);
-};

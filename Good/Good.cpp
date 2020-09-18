@@ -1,4 +1,5 @@
 #include"Good.h"
+#include "../Member/Tokenizer.h"
 
 Good::Good() {
 	_name = "";
@@ -217,18 +218,6 @@ void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRat
 	file.close();
 }
 
-vector<string> Tokenizer::splitString(string haystack, string needle) {
-	vector<string> token;
-	int start = 0;
-	size_t foundPosition = haystack.find(needle, start);
-	while (foundPosition != string::npos) {
-		token.push_back(haystack.substr(start, foundPosition - start));
-		start = foundPosition + needle.size();
-		foundPosition = haystack.find(needle, start);
-	}
-	token.push_back(haystack.substr(start, foundPosition - start));
-	return token;
-}
 
 GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string fileComment) {
 	ifstream file;
@@ -240,7 +229,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = TokenizerStr::split(line, "-");
 		Good newGood(info[0], info[1], stof(info[2]), stoi(info[3]), info[4], info[5]);
 		result.add(newGood);
 	}
@@ -253,7 +242,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n2; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = TokenizerStr::split(line, "-");
 		for (int k = 0; k < result.list.size(); k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {
@@ -271,7 +260,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	for (int i = 0; i < n3; i++) {
 		string line;
 		getline(file, line);
-		vector<string> info = Tokenizer::splitString(line, "-");
+		vector<string> info = TokenizerStr::split(line, "-");
 		for (int k = 0; k < result.list.size();k++) {
 			if (result.list[k].code() == info[0]) {
 				for (int j = 1; j < info.size(); j++) {

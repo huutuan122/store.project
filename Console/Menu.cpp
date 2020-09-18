@@ -8,6 +8,7 @@
 #include "../System/system.cpp"
 #include <vector>
 #include "Common.h"
+#include <sstream>
 
 Menu::Menu()
 {
@@ -30,6 +31,8 @@ void Menu::SignIn()
 	int choice;
 	system("cls");
 	UserInterface::Screen();
+	Common::gotoXY(49, 4);
+	cout << "--------- MENU DANG NHAP ----------";
 	Common::gotoXY(40, 6);
 	cout << "1.    Dang nhap hoi vien";
 	Common::gotoXY(40, 8);
@@ -39,7 +42,7 @@ void Menu::SignIn()
 	Common::gotoXY(40, 12);
 	cout << "4.    Exit";
 
-	Common::gotoXY(50, 13);
+	Common::gotoXY(50, 14);
 	cout << "Chon mot trong cac muc tren: ";
 	do
 	{
@@ -54,7 +57,8 @@ void Menu::SignIn()
 			}
 			case 2:
 			{
-				Employee::EmployeeMenu();
+				Employee a;
+				Employee::EmployeeMenu(a);
 				choice = 4;
 				break;
 			}
@@ -95,8 +99,10 @@ void Menu::ViewStoreInfo()
 
 void Menu::ViewFeedBack()
 {
-	if (_feedback.size() == 0)
+	if (_feedback.size() == 0){
+		Common::gotoXY(40, 16);
 		cout << "There is currently no feedback!";
+	}
 	else
 	{
 		cout << "Feedback:\n";
@@ -105,9 +111,19 @@ void Menu::ViewFeedBack()
 	}
 }
 
-void Menu::addFeedback(string feedback)
+void Menu::addFeedback(string feedback, Time t)
 {
-	_feedback.push_back(feedback);
+	stringstream writer;
+	writer << t.toString() << "	"<< feedback;
+	_feedback.push_back(writer.str());
+	ofstream f;
+	f.open("E:\\VSC\\C++\\Project Store\\github\\Console\\feedback.txt");
+	for (auto p: _feedback){
+		f << p << endl;
+	}
+
+
+	f.close();
 }
 
 void Menu::Exit()

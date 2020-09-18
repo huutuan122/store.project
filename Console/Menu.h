@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "../Good/Good.h"
+#include "../Employee/Time.h"
+
 using namespace std;
 
 class Menu
@@ -13,6 +15,7 @@ private:
 	string _hotline;
 	string _address;
 	string _moreInfo;
+	Time time;
 	vector<string> _feedback;
 
 public:
@@ -32,7 +35,7 @@ public:
 	void ViewStoreInfo();
 	void ViewFeedBack();
 	void Exit();
-	void addFeedback(string feedback);
+	void addFeedback(string feedback, Time t);
 };
 
 #endif // !_MENU_

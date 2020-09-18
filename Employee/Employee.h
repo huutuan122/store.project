@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include "Time.h"
+#include "../Employee/Time.h"
 
 using namespace std;
 #ifndef _EMPLOYEE_H_
@@ -52,12 +52,12 @@ public:
 	void Leveling();
 	void CheckIn();
 	void CheckOut();
-	static void EmployeeMenu();
-	void editInfo();
-	static int isAccess(vector<Employee> list);
+	static void EmployeeMenu(Employee &a);
+	static void editInfo(Employee& a);
+	static int isAccess(vector<Employee> list, Employee&a);
 	static void SignUp(vector<Employee> &list);
 	static vector<Employee> LoadData();
-	static void SaveData(vector<Employee> list);
+	static void SaveData(vector<Employee> list, Employee a);
 	static void deleteEmployee(Employee emp);
 	static void showEmployeeData();
 	string toString();

@@ -181,7 +181,6 @@ void Manager::EmployeeSystem()
             UserInterface::Screen();
             vector<Employee> list = Employee::LoadData();
             Employee::SignUp(list);
-            Employee::SaveData(list);
             Common::gotoXY(35, 20);
             cout << "Them nhan vien thanh cong!";
             Sleep(1000);

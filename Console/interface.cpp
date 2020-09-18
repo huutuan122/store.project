@@ -77,12 +77,12 @@ void UserInterface::Choice()
         case 3:
             Access::Danhgia();
             system("cls");
-            UserInterface::MainMenu();
+            enter = 5;
             break;
         case 4:
             Access::ThongTinCuaHang();
             system("cls");
-            UserInterface::MainMenu();
+            enter = 5;
             break;
         }
     } while (enter != 5);

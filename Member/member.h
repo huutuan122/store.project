@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 #include "Tokenizer.h"
+#include "../Discount/Discount.h"
+
 using namespace std;
 
 #ifndef _MEMBER_H_
@@ -43,6 +45,7 @@ public:
         _password = "1";
         _point = 0;
         _level = 'B';
+        _id = "";
     }
 
     Member(string user, string id, string name, string password, int point)
@@ -51,6 +54,7 @@ public:
         _name = name;
         _password = password;
         _point = point;
+        _id = id;
         if (_point < 100)
             _level = "Bronze";
         else if (_point > 100 && _point < 200)
@@ -64,15 +68,17 @@ public:
 public:
     static void loginasMember();
     string toString();
-    void accumulatePoint(unsigned int purchase);
+    static void accumulatePoint(unsigned int purchase , Member*& member);
     int usingPoint(bool sure);
     static void addMember();
-    void updateMemberInfo(string fileName, Member *&mem);
+    static void updateMemberInfo(Member *mem);
     static vector<Member *> readMemberFile();
     static void registerMember(Member*& mem);
     static void saveMemberInfo(vector<Member *> list);
     static void deleteMember(Member* mem);
     static void showMemberList();
+    static void MemberMenu(Member*& user);
+    static void showMemberInfo(Member*& user);
 };
 
 #endif

@@ -2,8 +2,8 @@
 #include "../Console/Common.h"
 #include "../Console/interface.h"
 #include <windows.h>
-#include "Time.cpp"
 #include <iomanip>
+#include "Time.cpp"
 
 Employee::Employee(string id, string name, string dob, string tel, string email, string add, double workhour, double totalhour, int level, string pass)
 {
@@ -100,6 +100,7 @@ void Employee::SignUp(vector<Employee> &list)
 	person.setPassword(temp);
 
 	list.push_back(person);
+	SaveData(list, person);
 }
 
 string Employee::toString()
@@ -130,7 +131,16 @@ void Employee::deleteEmployee(Employee emp)
 		list[i].setID(to_string(i + 1));
 	}
 
-	Employee::SaveData(list);
+	fstream writer;
+	writer.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::out);
+	writer << list[0].toString();
+	for (int i = 1; i < list.size(); i++)
+	{
+		writer << endl
+			   << list[i].toString();
+	}
+
+	writer.close();
 }
 
 void Employee::showEmployeeData()
@@ -147,7 +157,7 @@ void Employee::showEmployeeData()
 	}
 }
 
-void Employee::SaveData(vector<Employee> list)
+void Employee::SaveData(vector<Employee> list, Employee a)
 {
 	fstream writer;
 	writer.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::out);
@@ -156,6 +166,24 @@ void Employee::SaveData(vector<Employee> list)
 		cout << "Khong mo duoc file";
 		exit;
 	}
+
+	for (auto p: list){
+		if (p.ID() == a.ID()){
+			p.setTel(a.Tel());
+			p.setPassword(a.Password());
+			p.setName(a.Password());
+			p.setID(a.ID());
+			p.setEmail(a.Email());
+			p.setDOB(a.DOB());
+			p.setAddress(a.Address());
+			p._monthlyworkhour = a._monthlyworkhour;
+			p._salary = a._salary;
+			p._totalworkhour = a._totalworkhour;
+			p._level = a._level;
+		}
+	}
+
+
 	writer << list[0].toString();
 	for (int i = 1; i < list.size(); i++)
 	{
@@ -211,7 +239,7 @@ vector<Employee> Employee::LoadData()
 	return list;
 }
 
-int Employee::isAccess(vector<Employee> list)
+int Employee::isAccess(vector<Employee> list, Employee& a)
 {
 	int point = -1;
 	string username;
@@ -232,6 +260,18 @@ int Employee::isAccess(vector<Employee> list)
 		{
 			if (list[i].Password() == password)
 			{
+				a.setTel(list[i].Tel());
+				a.setPassword(list[i].Password());
+				a.setName(list[i].Password());
+				a.setID(list[i].ID());
+				a.setEmail(list[i].Email());
+				a.setDOB(list[i].DOB());
+				a.setAddress(list[i].Address());
+				a._monthlyworkhour = list[i]._monthlyworkhour;
+				a._salary = list[i]._salary;
+				a._totalworkhour = list[i]._totalworkhour;
+				a._level = list[i]._level;
+				
 				point = i;
 			}
 		}
@@ -239,7 +279,7 @@ int Employee::isAccess(vector<Employee> list)
 	return point;
 }
 
-void Employee::editInfo()
+void Employee::editInfo(Employee& a)
 {
 	string oldpass;
 	string newpass;
@@ -250,19 +290,19 @@ void Employee::editInfo()
 	Common::gotoXY(46, 6);
 	cout << "---------- Thong tin ca nhan ----------" << endl;
 	Common::gotoXY(40, 10);
-	cout << "1) Ho va Ten: " << _name;
+	cout << "1) Ho va Ten: " << a.Name();
 	Common::gotoXY(40, 12);
-	cout << "2) Ngay sinh: " << _dob;
+	cout << "2) Ngay sinh: " << a.DOB();
 	Common::gotoXY(40, 14);
-	cout << "3) So dien thoai: " << _tel;
+	cout << "3) So dien thoai: " << a.Tel();
 	Common::gotoXY(40, 16);
-	cout << "4) Email: " << _email;
+	cout << "4) Email: " << a.Email();
 	Common::gotoXY(40, 18);
-	cout << "5) Dia chi: " << _address;
+	cout << "5) Dia chi: " << a.Address();
 	Common::gotoXY(40, 20);
-	cout << "6) So gio lam trong thang: " << _monthlyworkhour;
+	cout << "6) So gio lam trong thang: " << a._monthlyworkhour;
 	Common::gotoXY(40, 22);
-	cout << "7) Level: " << _level;
+	cout << "7) Level: " << a._level;
 	Common::gotoXY(40, 24);
 	cout << "8) Mat khau: *********";
 	Common::gotoXY(35, 26);
@@ -280,9 +320,9 @@ void Employee::editInfo()
 			Common::gotoXY(53, 10);
 			cout << "Nhap Ho va Ten: ";
 			getline(cin, temp);
-			_name = temp;
 			Common::gotoXY(53, 12);
 			Sleep(100);
+			a.setName(temp);
 			cout << "Da chinh sua thanh cong!";
 			Common::gotoXY(35, 26);
 			cout << "Nhan 0 de quay lai: ";
@@ -296,7 +336,7 @@ void Employee::editInfo()
 			cout << "Nhap ngay sinh: ";
 			getline(cin, temp);
 			getline(cin, temp);
-			_dob = temp;
+			a.setDOB(temp);
 			Common::gotoXY(53, 10);
 			Sleep(1000);
 			cout << "Da chinh sua thanh cong!";
@@ -310,9 +350,8 @@ void Employee::editInfo()
 			UserInterface::Screen();
 			Common::gotoXY(53, 10);
 			cout << "Nhap so dien thoai: ";
-			getline(cin, temp);
-			getline(cin, temp);
-			_tel = temp;
+			cin >> temp;
+			a.setTel(temp);
 			Common::gotoXY(53, 10);
 			Sleep(1000);
 			cout << "Da chinh sua thanh cong!";
@@ -327,8 +366,7 @@ void Employee::editInfo()
 			Common::gotoXY(53, 10);
 			cout << "Nhap email: ";
 			getline(cin, temp);
-			getline(cin, temp);
-			_email = temp;
+			a.setEmail(temp);
 			Sleep(1000);
 			Common::gotoXY(53, 10);
 			cout << "Da chinh sua thanh cong!";
@@ -344,7 +382,7 @@ void Employee::editInfo()
 			cout << "Nhap dia chi: ";
 			getline(cin, temp);
 			getline(cin, temp);
-			_address = temp;
+			a.setAddress(temp);
 			Sleep(1000);
 			Common::gotoXY(53, 10);
 			cout << "Da chinh sua thanh cong!";
@@ -384,16 +422,16 @@ void Employee::editInfo()
 				Common::gotoXY(45, 10);
 				cout << "Nhap mat khau cu: ";
 				getline(cin, oldpass);
-				if (oldpass != _password)
+				if (oldpass != a._password)
 				{
 					Common::gotoXY(53, 12);
 					cout << "---------- Mat khau cu khong khop! ----------" << endl;
 				}
 				else
 					break;
-			} while (oldpass != _password);
+			} while (oldpass != a._password);
 
-			if (oldpass == _password)
+			if (oldpass == a._password)
 			{
 				Common::gotoXY(40, 14);
 				cout << "Mat khau dung!";
@@ -414,14 +452,16 @@ void Employee::editInfo()
 						cout << "---------- Mat khau khong khop ----------";
 						Sleep(1000);
 					}
-					else
+					else{
+						a.setPassword(newpass);
 						break;
+					}
 				} while (newpass != temp);
 				if (newpass == temp)
 				{
 					Common::gotoXY(40, 24);
 					cout << "Da thay doi mat khau thanh cong!";
-					_password = newpass;
+					a._password = newpass;
 				}
 			}
 			Common::gotoXY(35, 26);
@@ -430,15 +470,17 @@ void Employee::editInfo()
 		}
 		}
 	} while (choice != 0);
+	vector<Employee> list = LoadData();
+	SaveData(list, a);
 }
 
-void Employee::EmployeeMenu()
+void Employee::EmployeeMenu(Employee& a)
 {
 	int choice;
 	bool flag = false;
 	vector<Employee> list;
 	list = Employee::LoadData();
-	int pos = Employee::isAccess(list);
+	int pos = Employee::isAccess(list, a);
 	do
 	{
 		Sleep(1000);
@@ -480,7 +522,7 @@ void Employee::EmployeeMenu()
 						cout << "---------- Ban da Check in roi ----------";
 					}
 					else
-						list[pos].editInfo();
+						list[pos].editInfo(a);
 					break;
 				}
 				case 2:
@@ -525,9 +567,9 @@ void Employee::EmployeeMenu()
 			Common::gotoXY(35, 10);
 			cout << "---------- Sai ten dang nhap hoac mat khau! ----------";
 			Sleep(1000);
-			pos = Employee::isAccess(list);
+			pos = Employee::isAccess(list, a);
 		}
 	} while (pos != -1);
 
-	Employee::SaveData(list);
+	Employee::SaveData(list, a);
 }
