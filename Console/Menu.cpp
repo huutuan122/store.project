@@ -9,7 +9,6 @@
 #include <vector>
 #include "Common.h"
 #include <sstream>
-#include <iomanip>
 
 Menu::Menu()
 {
@@ -27,15 +26,16 @@ Menu::Menu(string hotline, string address, string moreInfo)
 
 // Access Function
 
-void Menu::Danhgia(){
+void Menu::Danhgia()
+{
 	system("cls");
 	UserInterface::Screen();
 	Menu menu;
 	menu.ViewFeedBack();
 	int i;
-	Common::gotoXY(1, 26);
+	Common::gotoXY(20, 26);
 	cout << "1. Danh gia                   2. Thoat";
-	Common::gotoXY(1, 27);
+	Common::gotoXY(24, 27);
 	cout << "Chon mot trong cac muc tren: ";
 	cin >> i;
 
@@ -49,20 +49,35 @@ void Menu::Danhgia(){
 		Time now;
 		cout << "De lai danh gia cua ban: ";
 		Common::gotoXY(30, 16);
+		getline(cin, feedback);
+		getline(cin, feedback);
 
+		Common::gotoXY(40, 26);
 		menu.addFeedback(feedback, now);
 	}
 	else
 		UserInterface::MainMenu();
 }
 
-void Menu::Thongtincuahang(){
+void Menu::Thongtincuahang()
+{
 	system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        menu.ViewStoreInfo();
-        Common::gotoXY(1, 27);
-        system("pause");
+	UserInterface::Screen();
+	Menu menu;
+	menu.ViewStoreInfo();
+	Common::gotoXY(1, 27);
+	system("pause");
+}
+
+void Menu::Muahang()
+{
+
+	system("cls");
+	UserInterface::Screen();
+	Menu menu;
+	Common::gotoXY(1, 2);
+	menu.data = GoodList::readGoodListFromFile("D:\\Final\\store.project\\Good\\GoodList.txt", "D:\\Final\\store.project\\Good\\Rate.txt", "D:\\Final\\store.project\\Good\\Comment.txt");
+	menu.ViewGoodList();
 }
 //  Level 2
 void Menu::SignIn()
@@ -88,61 +103,36 @@ void Menu::SignIn()
 		cin >> choice;
 		switch (choice)
 		{
-			case 1:
-			{
-				Member::loginasMember();
-				choice = 4;
-				break;
-			}
-			case 2:
-			{
-				Employee::loginAsEmployee();
-				choice = 4;
-				break;
-			}
-			case 3:
-			{
-				Manager::LoginAsManager();
-				choice = 4;
-				break;
-			}
-			case 4: {
-				UserInterface::MainMenu();
-			}
+		case 1:
+		{
+			Member::loginasMember();
+			choice = 4;
+			break;
+		}
+		case 2:
+		{
+			Employee::loginAsEmployee();
+			choice = 4;
+			break;
+		}
+		case 3:
+		{
+			Manager::LoginAsManager();
+			choice = 4;
+			break;
+		}
+		case 4:
+		{
+			UserInterface::MainMenu();
+		}
 		}
 	} while (choice != 4);
-	
 }
 
 void Menu::ViewGoodList()
 {
-	int i = 1;
-	Common::gotoXY(55, 1);
-	cout << "Good list:";
-	Common::gotoXY(i, 2);
-	cout << "    Ten         Gia              Tinh trang";
-	for (int k = 0; k < data.list.size();k++)
-	{
-		int j = k + 4;
-		Common::gotoXY(i, j);
-		cout << k + 1;
-		Common::gotoXY(i+4, j);
-		cout << data.list[k].name();
-		Common::gotoXY(i+14, j);
-		cout << fixed << setprecision(2) << data.list[k].price();
-		Common::gotoXY(i+34, j);
-		cout << data.list[k].status();
-	}
-	Common::gotoXY(1, 27);
-	cout << "Nhap 0 de thoat";
-	Common::gotoXY(1, 26);
-	cout << "Chon san phan ban muon mua: ";
-	int choice;
-	cin >> choice;
-	if(choice==0)
-		UserInterface::MainMenu();
-	
-		
+	cout << "Good list:\n";
+	cout << _data.showList();
 }
 
 void Menu::Order()
@@ -154,17 +144,16 @@ void Menu::ViewStoreInfo()
 {
 	Common::gotoXY(54, 6);
 	cout << "_____THONG TIN CUA HANG_____";
-	Common::gotoXY(54, 7);
+
 	cout << "Hotline: ";
-	Common::gotoXY(54, 8);
 	cout << "Address: " << _address;
-	Common::gotoXY(54, 9);
 	cout << "More Information: " << _moreInfo << endl;
 }
 
 void Menu::ViewFeedBack()
 {
-	if (_feedback.size() == 0){
+	if (_feedback.size() == 0)
+	{
 		Common::gotoXY(40, 16);
 		cout << "There is currently no feedback!";
 	}
@@ -179,14 +168,14 @@ void Menu::ViewFeedBack()
 void Menu::addFeedback(string feedback, Time t)
 {
 	stringstream writer;
-	writer << t.toString() << "	"<< feedback;
+	writer << t.toString() << "	" << feedback;
 	_feedback.push_back(writer.str());
 	ofstream f;
 	f.open("E:\\VSC\\C++\\Project Store\\github\\Console\\feedback.txt");
-	for (auto p: _feedback){
+	for (auto p : _feedback)
+	{
 		f << p << endl;
 	}
-
 
 	f.close();
 }
@@ -194,9 +183,4 @@ void Menu::addFeedback(string feedback, Time t)
 void Menu::Exit()
 {
 	Exit();
-}
-
-void Menu::Purchase(int position, Member* member){
-	data.list[position].setAmount(data.list[position].amount() - 1);
-	
 }

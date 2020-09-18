@@ -39,6 +39,7 @@ public:
 
 	static void Danhgia();
 	static void Thongtincuahang();
+	static void Muahang();
 };
 
 #endif // !_MENU_
