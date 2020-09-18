@@ -179,7 +179,7 @@ void Manager::EmployeeSystem()
         {
             system("cls");
             UserInterface::Screen();
-            vector<Employee> list = Employee::LoadData();
+            vector<Employee*> list = Employee::LoadData();
             Employee::SignUp(list);
             Common::gotoXY(35, 20);
             cout << "Them nhan vien thanh cong!";
@@ -192,7 +192,7 @@ void Manager::EmployeeSystem()
         {
             system("cls");
             UserInterface::Screen();
-            vector<Employee> list = Employee::LoadData();
+            vector<Employee*> list = Employee::LoadData();
             Employee::showEmployeeData();
             Employee temp;
             string i;
@@ -201,7 +201,7 @@ void Manager::EmployeeSystem()
             cin >> i;
             for (auto p : list)
             {
-                if (p.ID() == i)
+                if (p->ID() == i)
                 {
                     Employee::deleteEmployee(p);
                 }

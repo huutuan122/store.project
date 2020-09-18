@@ -36,6 +36,9 @@ public:
 	void ViewFeedBack();
 	void Exit();
 	void addFeedback(string feedback, Time t);
+
+	static void Danhgia();
+	static void Thongtincuahang();
 };
 
 #endif // !_MENU_

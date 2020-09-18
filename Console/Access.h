@@ -23,42 +23,12 @@ public:
 
     static void Danhgia()
     {
-        system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        menu.ViewFeedBack();
-        int i;
-        Common::gotoXY(1, 26);
-        cout << "1. Danh gia                   2. Thoat";
-        Common::gotoXY(1, 27);
-        cout << "Chon mot trong cac muc tren: ";
-        cin >> i;
-
-        if (i == 1)
-        {
-            system("cls");
-            UserInterface::Screen();
-            Menu menu;
-            string feedback;
-            Common::gotoXY(40, 14);
-            Time now;
-            cout << "De lai danh gia cua ban: ";
-            Common::gotoXY(30, 16);
-
-            menu.addFeedback(feedback, now);
-        }
-        else
-            UserInterface::MainMenu();
+        
     }
 
     static void ThongTinCuaHang()
     {
-        system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        menu.ViewStoreInfo();
-        Common::gotoXY(1, 27);
-        system("pause");
+        
     }
 };
 

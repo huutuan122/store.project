@@ -10,14 +10,14 @@
 #include "../Console/Common.h"
 #include "../Discount/Discount.cpp"
 
-
-
 using namespace std;
 
-void Member::showMemberInfo(Member*& member){
+void Member::showMemberInfo(Member *&member)
+{
     int choice;
-    
-    do{
+
+    do
+    {
         system("cls");
         UserInterface::Screen();
         Common::gotoXY(49, 6);
@@ -38,59 +38,65 @@ void Member::showMemberInfo(Member*& member){
         cout << "Ban muon chinh sua phan nao? Chon mot muc hoac nhan '0' de quay lai: ";
         cin >> choice;
 
-        switch(choice){
-            case 1:{
-                Common::gotoXY(40, 26);
-                cout << "Khong chinh sua ID duoc!";
-                Sleep(1000);
-                break;
-            }
-            case 2: {
-                system("cls");
-                UserInterface::Screen();
-                Common::gotoXY(30, 14);
-                string s;
-                cout << "Nhap ten ban muon chinh sua: ";
-                getline(cin, s);
-                getline(cin, s);
-                Common::gotoXY(40, 26);
-                cout << "Sua ten thanh cong!";
-                member->setName(s);
-                Sleep(1000);
-                break;
-            }
-            case 3:{
-                Common::gotoXY(40, 26);
-                cout << "Khong chinh sua ten dang nhap duoc!";
-                Sleep(1000);
-                break;
-            }
-            case 4:{
-                system("cls");
-                UserInterface::Screen();
-                Common::gotoXY(30, 14);
-                string s;
-                cout << "Nhap mat khau muon chinh sua: ";
-                cin >> s;
-                Common::gotoXY(40, 26);
-                cout << "Sua mat khau thanh cong!";
-                member->setPassword(s);
-                Sleep(1000);
-                break;
-            }
-            case 5:{
-                Common::gotoXY(40, 26);
-                cout << "Khong chinh sua diem hoi vien duoc!";
-                Sleep(1000);
-                break;
-
-            }
-            case 6: {
-                Common::gotoXY(40, 26);
-                cout << "Khong chinh sua hang hoi vien duoc!";
-                Sleep(1000);
-                break;
-            }
+        switch (choice)
+        {
+        case 1:
+        {
+            Common::gotoXY(40, 26);
+            cout << "Khong chinh sua ID duoc!";
+            Sleep(1000);
+            break;
+        }
+        case 2:
+        {
+            system("cls");
+            UserInterface::Screen();
+            Common::gotoXY(30, 14);
+            string s;
+            cout << "Nhap ten ban muon chinh sua: ";
+            getline(cin, s);
+            getline(cin, s);
+            Common::gotoXY(40, 26);
+            cout << "Sua ten thanh cong!";
+            member->setName(s);
+            Sleep(1000);
+            break;
+        }
+        case 3:
+        {
+            Common::gotoXY(40, 26);
+            cout << "Khong chinh sua ten dang nhap duoc!";
+            Sleep(1000);
+            break;
+        }
+        case 4:
+        {
+            system("cls");
+            UserInterface::Screen();
+            Common::gotoXY(30, 14);
+            string s;
+            cout << "Nhap mat khau muon chinh sua: ";
+            cin >> s;
+            Common::gotoXY(40, 26);
+            cout << "Sua mat khau thanh cong!";
+            member->setPassword(s);
+            Sleep(1000);
+            break;
+        }
+        case 5:
+        {
+            Common::gotoXY(40, 26);
+            cout << "Khong chinh sua diem hoi vien duoc!";
+            Sleep(1000);
+            break;
+        }
+        case 6:
+        {
+            Common::gotoXY(40, 26);
+            cout << "Khong chinh sua hang hoi vien duoc!";
+            Sleep(1000);
+            break;
+        }
         }
     } while (choice != 0);
     updateMemberInfo(member);
@@ -98,10 +104,13 @@ void Member::showMemberInfo(Member*& member){
         return;
 }
 
-void Member::updateMemberInfo(Member* member){
+void Member::updateMemberInfo(Member *member)
+{
     vector<Member *> list = readMemberFile();
-    for (auto p: list){
-        if (p->user() == member->user()){
+    for (auto p : list)
+    {
+        if (p->user() == member->user())
+        {
             p->setID(member->ID());
             p->setLevel(member->Level());
             p->setName(member->Name());
@@ -113,12 +122,14 @@ void Member::updateMemberInfo(Member* member){
     saveMemberInfo(list);
 }
 
-void Member::saveMemberInfo(vector<Member*> list){
+void Member::saveMemberInfo(vector<Member *> list)
+{
     ofstream f;
     f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt", ios::out);
 
     f << list[0]->toString();
-    for (int i = 1; i < list.size(); i++){
+    for (int i = 1; i < list.size(); i++)
+    {
         f << endl
           << list[i]->toString();
     }
@@ -132,7 +143,7 @@ vector<Member *> Member::readMemberFile()
     f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt");
     vector<Member *> list;
     string s;
-    
+
     while (!f.eof())
     {
         getline(f, s);
@@ -208,11 +219,13 @@ void Member::loginasMember()
     // system("cls");
 }
 
-void Member::MemberMenu(Member*& user){
+void Member::MemberMenu(Member *&user)
+{
 
     int choice;
-    
-    do{
+
+    do
+    {
         system("cls");
         UserInterface::Screen();
         Common::gotoXY(49, 6);
@@ -228,23 +241,27 @@ void Member::MemberMenu(Member*& user){
         Common::gotoXY(38, 18);
         cout << "Nhap lua chon: ";
         cin >> choice;
-        switch(choice){
-            case 1:{
-              
-                
-                break;
-            }
-            case 2:{
-                Discount::showVoucher();
-                break;
-            }
-            case 3: {
-                Member::showMemberInfo(user);
-                break;
-            }
+        switch (choice)
+        {
+        case 1:
+        {
+
+            break;
         }
-    } while (choice !=0);
-    if (choice == 0){
+        case 2:
+        {
+            Discount::showVoucher();
+            break;
+        }
+        case 3:
+        {
+            Member::showMemberInfo(user);
+            break;
+        }
+        }
+    } while (choice != 0);
+    if (choice == 0)
+    {
         Menu::SignIn();
     }
 }
@@ -252,12 +269,12 @@ void Member::MemberMenu(Member*& user){
 string Member::toString()
 {
     stringstream writer;
-    writer << _id << " - " << _user << " - " << _password << " - "
+    writer << _id << ") " << _user << " - " << _password << " - "
            << _name << " - " << _point << " - " << _level;
     return writer.str();
 }
 
-void Member::accumulatePoint(unsigned int purchase, Member*& member)
+void Member::accumulatePoint(unsigned int purchase, Member *&member)
 {
     int point = purchase / 10000 * 1;
     member->setPoint(member->Point() + point);
@@ -284,7 +301,7 @@ int Member::usingPoint(bool sure)
 
 void Member::addMember()
 {
-    Member* mem = new Member();
+    Member *mem = new Member();
     ofstream f;
     vector<Member *> list = readMemberFile();
     Common::gotoXY(49, 4);
@@ -318,8 +335,6 @@ void Member::addMember()
     saveMemberInfo(list);
 }
 
-
-
 void Member::registerMember(Member *&mem)
 {
     string s;
@@ -342,9 +357,10 @@ void Member::registerMember(Member *&mem)
     system("cls");
 }
 
-void Member::deleteMember(Member* mem){
+void Member::deleteMember(Member *mem)
+{
     int i = 0;
-    vector<Member*> list = readMemberFile();
+    vector<Member *> list = readMemberFile();
     for (auto p : list)
     {
         if (p->ID() == mem->ID())
@@ -362,7 +378,8 @@ void Member::deleteMember(Member* mem){
     saveMemberInfo(list);
 }
 
-void Member::showMemberList(){
+void Member::showMemberList()
+{
     vector<Member *> list = readMemberFile();
     int i = 4;
     Common::gotoXY(52, 2);

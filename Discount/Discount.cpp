@@ -90,12 +90,12 @@ void Discount::addVoucher(){
 	map<string, string> discountList = getDiscountFile();
 	string code, percent;
 	Common::gotoXY(40, 14);
-	cout << "Add voucher: ";
+	cout << "Them voucher: ";
 	Common::gotoXY(35, 16);
-	cout << "Enter code: ";
+	cout << "Nhap code: ";
 	cin >> code;
 	Common::gotoXY(35, 18);
-	cout << "Add percent: ";
+	cout << "Nhap phan tram khuyen mai: ";
 	cin >> percent;
 
 	discountList[code] = percent;
