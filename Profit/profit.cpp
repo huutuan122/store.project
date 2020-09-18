@@ -2,6 +2,6 @@
 
 using namespace std;
 
-unsigned long int Profit::caltotalSalary()
-{
+unsigned long int Profit::totalBillSold(){
+    
 }

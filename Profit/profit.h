@@ -13,6 +13,7 @@ private:
     int _countBill;
 
 public:
+    static unsigned long int totalBillSold();
     static unsigned long int caltotalSalary();
     static unsigned long int totalIncome();
 };

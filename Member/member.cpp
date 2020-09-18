@@ -245,7 +245,7 @@ void Member::MemberMenu(Member *&user)
         {
         case 1:
         {
-
+            
             break;
         }
         case 2:
