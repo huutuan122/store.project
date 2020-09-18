@@ -67,6 +67,8 @@ void UserInterface::Choice()
         switch (enter)
         {
         case 1:
+            Access::Muahang();
+            enter = 5;
             break;
         case 2:
         {
@@ -87,5 +89,5 @@ void UserInterface::Choice()
         }
     } while (enter != 5);
     if (enter == 5)
-        return;
+        exit(0);
 }

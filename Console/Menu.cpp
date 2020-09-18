@@ -9,6 +9,7 @@
 #include <vector>
 #include "Common.h"
 #include <sstream>
+#include <iomanip>
 
 Menu::Menu()
 {
@@ -78,8 +79,33 @@ void Menu::SignIn()
 
 void Menu::ViewGoodList()
 {
-	cout << "Good list:\n";
-	cout << _data.showList();
+	int i = 1;
+	Common::gotoXY(55, 1);
+	cout << "Good list:";
+	Common::gotoXY(i, 2);
+	cout << "    Ten         Gia              Tinh trang";
+	for (int k = 0; k < data.list.size();k++)
+	{
+		int j = k + 4;
+		Common::gotoXY(i, j);
+		cout << k + 1;
+		Common::gotoXY(i+4, j);
+		cout << data.list[k].name();
+		Common::gotoXY(i+14, j);
+		cout << fixed << setprecision(2) << data.list[k].price();
+		Common::gotoXY(i+34, j);
+		cout << data.list[k].status();
+	}
+	Common::gotoXY(1, 27);
+	cout << "Nhap 0 de thoat";
+	Common::gotoXY(1, 26);
+	cout << "Chon san phan ban muon mua: ";
+	int choice;
+	cin >> choice;
+	if(choice==0)
+		UserInterface::MainMenu();
+	
+		
 }
 
 void Menu::Order()
@@ -91,9 +117,11 @@ void Menu::ViewStoreInfo()
 {
 	Common::gotoXY(54, 6);
 	cout << "_____THONG TIN CUA HANG_____";
-
+	Common::gotoXY(54, 7);
 	cout << "Hotline: ";
+	Common::gotoXY(54, 8);
 	cout << "Address: " << _address;
+	Common::gotoXY(54, 9);
 	cout << "More Information: " << _moreInfo << endl;
 }
 
@@ -129,4 +157,9 @@ void Menu::addFeedback(string feedback, Time t)
 void Menu::Exit()
 {
 	Exit();
+}
+
+void Menu::Purchase(int position, Member* member){
+	data.list[position].setAmount(data.list[position].amount() - 1);
+	
 }

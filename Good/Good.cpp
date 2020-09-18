@@ -80,9 +80,9 @@ float Good::averageRate()
 string Good::status()
 {
 	if (_amount > 0)
-		return "Stocking!";
+		return "Con hang";
 	else
-		return "Out of stock!";
+		return "Het hang";
 }
 
 bool GoodList::compNameAZ(Good a, Good b)
@@ -279,7 +279,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	{
 		string line;
 		getline(file, line);
-		vector<string> info = TokenizerStr::split(line, "-");
+		vector<string> info = TokenizerStr::split(line, " - ");
 		Good newGood(info[0], info[1], stof(info[2]), stoi(info[3]), info[4], info[5]);
 		result.add(newGood);
 	}
@@ -293,7 +293,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	{
 		string line;
 		getline(file, line);
-		vector<string> info = TokenizerStr::split(line, "-");
+		vector<string> info = TokenizerStr::split(line, " - ");
 		for (int k = 0; k < result.list.size(); k++)
 		{
 			if (result.list[k].code() == info[0])
@@ -315,7 +315,7 @@ GoodList GoodList::readGoodListFromFile(string fileGood, string fileRate, string
 	{
 		string line;
 		getline(file, line);
-		vector<string> info = TokenizerStr::split(line, "-");
+		vector<string> info = TokenizerStr::split(line, " - ");
 		for (int k = 0; k < result.list.size(); k++)
 		{
 			if (result.list[k].code() == info[0])

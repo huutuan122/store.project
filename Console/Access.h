@@ -3,6 +3,7 @@
 #include "Menu.cpp"
 #include <windows.h>
 #include "../Employee/Time.h"
+#include "../Good/Good.h"
 
 using namespace std;
 
@@ -12,7 +13,14 @@ using namespace std;
 class Access
 {
 public:
-    static void Muahang();
+    static void Muahang(){
+        system("cls");
+        UserInterface::Screen();
+        Menu menu;
+        Common::gotoXY(1, 2);
+        menu.data = GoodList::readGoodListFromFile("D:\\Final\\store.project\\Good\\GoodList.txt", "D:\\Final\\store.project\\Good\\Rate.txt", "D:\\Final\\store.project\\Good\\Comment.txt");
+        menu.ViewGoodList();
+    }
 
     static void Dangnhap()
     {
@@ -59,6 +67,7 @@ public:
         menu.ViewStoreInfo();
         Common::gotoXY(1, 27);
         system("pause");
+        UserInterface::MainMenu();
     }
 };
 
