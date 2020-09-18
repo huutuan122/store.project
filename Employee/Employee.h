@@ -48,20 +48,21 @@ public:
 	double getSalary() { return _salary; }
 
 public:
-	void calWorkHour();
-	void Leveling();
-	void CheckIn();
-	void CheckOut();
-	static void EmployeeMenu(Employee &a);
-	static void editInfo(Employee& a);
-	static int isAccess(vector<Employee> list, Employee&a);
-	static void SignUp(vector<Employee> &list);
-	static vector<Employee> LoadData();
-	static void SaveData(vector<Employee> list, Employee a);
-	static void deleteEmployee(Employee emp);
-	static void showEmployeeData();
+	static void calWorkHour(Employee *&a);
+	static void Leveling(Employee* &a);
+	static void CheckIn(Employee* &a);
+	static void CheckOut(Employee* &a);
+	static void calSalary(Employee* &a);
 	string toString();
-	void calSalary();
+	static void showEmployeeData();
+	static void EmployeeMenu(Employee *&a);
+	static void showEmployeeInfo(Employee *&a);
+	static vector<Employee *> LoadData();
+	static void SignUp(vector<Employee *> &list);
+	static void deleteEmployee(Employee* emp);
+	static void SaveEmployeeInfo(vector<Employee*> list);
+	static void updateEmployeeInfo(Employee* a);
+	static void loginAsEmployee();
 };
 
 #endif

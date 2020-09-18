@@ -3,7 +3,6 @@
 #include "Menu.cpp"
 #include <windows.h>
 #include "../Employee/Time.h"
-#include "../Good/Good.h"
 
 using namespace std;
 
@@ -13,14 +12,7 @@ using namespace std;
 class Access
 {
 public:
-    static void Muahang(){
-        system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        Common::gotoXY(1, 2);
-        menu.data = GoodList::readGoodListFromFile("D:\\Final\\store.project\\Good\\GoodList.txt", "D:\\Final\\store.project\\Good\\Rate.txt", "D:\\Final\\store.project\\Good\\Comment.txt");
-        menu.ViewGoodList();
-    }
+    static void Muahang();
 
     static void Dangnhap()
     {
@@ -31,43 +23,12 @@ public:
 
     static void Danhgia()
     {
-        system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        menu.ViewFeedBack();
-        int i;
-        Common::gotoXY(1, 26);
-        cout << "1. Danh gia                   2. Thoat";
-        Common::gotoXY(1, 27);
-        cout << "Chon mot trong cac muc tren: ";
-        cin >> i;
-
-        if (i == 1)
-        {
-            system("cls");
-            UserInterface::Screen();
-            Menu menu;
-            string feedback;
-            Common::gotoXY(40, 14);
-            Time now;
-            cout << "De lai danh gia cua ban: ";
-            Common::gotoXY(30, 16);
-
-            menu.addFeedback(feedback, now);
-        }
-        else
-            UserInterface::MainMenu();
+        
     }
 
     static void ThongTinCuaHang()
     {
-        system("cls");
-        UserInterface::Screen();
-        Menu menu;
-        menu.ViewStoreInfo();
-        Common::gotoXY(1, 27);
-        system("pause");
-        UserInterface::MainMenu();
+        
     }
 };
 

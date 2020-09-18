@@ -5,20 +5,19 @@
 #include <vector>
 #include "../Good/Good.h"
 #include "../Employee/Time.h"
-#include "../Member/member.h"
 
 using namespace std;
 
 class Menu
 {
 private:
+	GoodList _data;
 	string _hotline;
 	string _address;
 	string _moreInfo;
 	Time time;
 	vector<string> _feedback;
-public:
-	GoodList data;
+
 public:
 	string hotline() { return _hotline; }
 	string address() { return _address; }
@@ -37,7 +36,9 @@ public:
 	void ViewFeedBack();
 	void Exit();
 	void addFeedback(string feedback, Time t);
-	void Purchase(int position, Member* member);
+
+	static void Danhgia();
+	static void Thongtincuahang();
 };
 
 #endif // !_MENU_

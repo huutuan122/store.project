@@ -25,7 +25,45 @@ Menu::Menu(string hotline, string address, string moreInfo)
 	_moreInfo = moreInfo;
 }
 
+// Access Function
 
+void Menu::Danhgia(){
+	system("cls");
+	UserInterface::Screen();
+	Menu menu;
+	menu.ViewFeedBack();
+	int i;
+	Common::gotoXY(1, 26);
+	cout << "1. Danh gia                   2. Thoat";
+	Common::gotoXY(1, 27);
+	cout << "Chon mot trong cac muc tren: ";
+	cin >> i;
+
+	if (i == 1)
+	{
+		system("cls");
+		UserInterface::Screen();
+		Menu menu;
+		string feedback;
+		Common::gotoXY(40, 14);
+		Time now;
+		cout << "De lai danh gia cua ban: ";
+		Common::gotoXY(30, 16);
+
+		menu.addFeedback(feedback, now);
+	}
+	else
+		UserInterface::MainMenu();
+}
+
+void Menu::Thongtincuahang(){
+	system("cls");
+        UserInterface::Screen();
+        Menu menu;
+        menu.ViewStoreInfo();
+        Common::gotoXY(1, 27);
+        system("pause");
+}
 //  Level 2
 void Menu::SignIn()
 {
@@ -58,8 +96,7 @@ void Menu::SignIn()
 			}
 			case 2:
 			{
-				Employee a;
-				Employee::EmployeeMenu(a);
+				Employee::loginAsEmployee();
 				choice = 4;
 				break;
 			}
