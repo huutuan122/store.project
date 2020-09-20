@@ -52,7 +52,7 @@ public: // Hàm công việc của quản lí
     static void MemberSystem();
     // Quản lí thu nhập cửa hàng
     static void TotalIncome();
-    //
+    // Quản lí hàng hoá
     static void GoodManagement();
 };
 
