@@ -3,6 +3,7 @@
 
 class Profit
 {
+    
 private:
     int _countBill;
 

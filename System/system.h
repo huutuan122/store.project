@@ -1,6 +1,7 @@
 #include "../Member/member.h"
 #include "../Employee/Employee.h"
 #include "../Utility/Date.h"
+#include "../Good/Good.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -35,7 +36,7 @@ public: // Constructor
 
 public: // Hàm chức năng
     // Đọc file thông tin của quản lí
-    static vector<Manager *> readManagerFile(string fileName);
+    static vector<Manager *> readManagerFile();
     string toString();
 
 public: // Hàm giao diện quản lí
@@ -51,6 +52,8 @@ public: // Hàm công việc của quản lí
     static void MemberSystem();
     // Quản lí thu nhập cửa hàng
     static void TotalIncome();
+    //
+    static void GoodManagement();
 };
 
 #endif

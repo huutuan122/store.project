@@ -3,9 +3,9 @@
 #include "../Console/interface.h"
 #include <windows.h>
 #include <iomanip>
-#include "Time.cpp"
+#include "../Utility/Time.cpp"
 #include "../Member/Tokenizer.h"
-
+#include "../Utility/util.h"
 // Constructor
 Employee::Employee(string id, string name, string dob, string tel, string email, string add, double workhour, double totalhour, int level, string pass)
 {
@@ -38,10 +38,12 @@ Employee::Employee()
 // Nhóm hàm tính thời gian làm và tính lương
 void Employee::CheckIn(Employee *&a)
 {
+	Time t;
+	Common::color(14);
 	a->_begin.getTime();
 	int i;
 	Common::gotoXY(30, 14);
-	cout << "Ban da check in thanh cong!!!";
+	cout << "Ban da check in thanh cong vao luc: " << t.toString();
 	Common::gotoXY(40, 20);
 	cout << "Nhan '0' de quay lai: ";
 	cin >> i;
@@ -51,10 +53,12 @@ void Employee::CheckIn(Employee *&a)
 
 void Employee::CheckOut(Employee *&a)
 {
+	Time t;
+	Common::color(14);
 	a->_end.getTime();
 	int i;
 	Common::gotoXY(30, 14);
-	cout << "Ban da check out thanh cong!!!";
+	cout << "Ban da check out thanh cong vao luc: " << t.toString();
 	updateEmployeeInfo(a);
 	Common::gotoXY(40, 20);
 	cout << "Nhan '0' de quay lai: ";
@@ -78,6 +82,7 @@ void Employee::Leveling(Employee *&a)
 
 void Employee::calSalary(Employee *&a)
 {
+	Common::color(14);
 	a->_salary = ((a->_level * 2000.0) + 16000.0) * a->_monthlyworkhour;
 	Common::gotoXY(45, 12);
 	cout << "Luong thang nay cua ban la: " << a->getSalary();
@@ -103,6 +108,7 @@ string Employee::toString()
 // Hàm giao diện
 void Employee::EmployeeMenu(Employee *&a)
 {
+	Common::color(14);
 	int choice;
 	bool flag = false;
 	do
@@ -176,6 +182,7 @@ void Employee::EmployeeMenu(Employee *&a)
 
 void Employee::loginAsEmployee()
 {
+	Common::color(14);
 	vector<Employee *> list = LoadData();
 	Employee *temp = new Employee();
 	string user, pass;
@@ -236,7 +243,7 @@ vector<Employee *> Employee::LoadData()
 	string temp;
 	vector<string> tokens;
 	vector<Employee *> list;
-	reader.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::in);
+	reader.open(Util::path() + "\\Employee\\EmployeeData.txt", ios::in);
 
 	while (!reader.eof())
 	{
@@ -252,6 +259,7 @@ vector<Employee *> Employee::LoadData()
 
 void Employee::showEmployeeData()
 {
+	Common::color(14);
 	int i = 4;
 	Common::gotoXY(52, 2);
 	cout << "_______DANH SACH NHAN VIEN_______";
@@ -266,6 +274,7 @@ void Employee::showEmployeeData()
 
 void Employee::showEmployeeInfo(Employee *&employee)
 {
+	Common::color(14);
 	int choice;
 	do
 	{
@@ -455,7 +464,7 @@ void Employee::updateEmployeeInfo(Employee *a)
 void Employee::SaveEmployeeInfo(vector<Employee *> list)
 {
 	ofstream writer;
-	writer.open("E:\\VSC\\C++\\Project Store\\github\\Employee\\EmployeeData.txt", ios::out);
+	writer.open(Util::path() + "\\Employee\\EmployeeData.txt", ios::out);
 
 	writer << list[0]->toString();
 	for (int i = 1; i < list.size(); i++)
@@ -467,10 +476,13 @@ void Employee::SaveEmployeeInfo(vector<Employee *> list)
 	writer.close();
 }
 
-void Employee::SignUp(vector<Employee *> &list)
+void Employee::SignUp()
 {
-	Employee *person;
-	person->setID(to_string(list.size() + 1));
+	vector<Employee *> list = Employee::LoadData();
+	Common::color(14);
+	Employee *person = new Employee();
+	string id = to_string(list.size() + 1);
+	person->setID(id);
 	string temp;
 	string temp2;
 	Common::gotoXY(49, 4);

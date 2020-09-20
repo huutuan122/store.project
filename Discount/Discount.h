@@ -22,7 +22,7 @@ public:
 	static void addVoucher();
 
 	// Hàm tính tổng lợi được giảm
-	float countDiscount(float price, string codeDiscount, int UsePoint, bool &codeIsValid);
+	static float countDiscount(float price, string codeDiscount, int UsePoint, bool &codeIsValid);
 };
 
 #endif // !_DISCOUNT_

@@ -1,7 +1,9 @@
 #ifndef _ORDER_H_
 #define _ORDER_H_
-#include "Date.h"
-#include "../Bill_Order/Time.h"
+#include "../Bill_Order/ZTime.h"
+#include "../Bill_Order/ZDate.h"
+#include "../Bill_Order/ZTime.cpp"
+#include "../Bill_Order/ZDate.cpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,50 +11,49 @@
 #include <fstream>
 using namespace std;
 
-class Order {
+class Order
+{
 private:
 	string _id;
 	string _name;
-	double _price;
+	float _price;
 	int _amount;
-	Date _date;
-	Time _time;
+	ZDate _date;
+	ZTime _time;
 	string _customerName;
+
 public:
 	string id() { return _id; }
 	string name() { return _name; }
-	double price() { return _price; }
+	float price() { return _price; }
 	int amount() { return _amount; }
-	Date date() { return _date; }
-	Time time() { return _time; }
+	ZDate date() { return _date; }
+	ZTime time() { return _time; }
 	string customerName() { return _customerName; }
+
 public:
 	Order();
-	Order(string id, string name, double price, int amount, Date date, Time time, string customerName);
+	Order(string id, string name, float price, int amount, ZDate date, ZTime time, string customerName);
+
 public:
-	static void tokenizer(string line, string& id, string& name, double& price, int& amount, Date& date, Time& time, string& customerName);
+	static void tokenizer(string line, string &id, string &name, float &price, int &amount, ZDate &date, ZTime &time, string &customerName);
 	bool checkOrder(string userID, string userName, string checkID, string checkName);
 	string toString(bool);
 };
 
-class OrderStore {
-private:
-	vector<Order> _list;
+class OrderStore
+{
+public:
+	vector<Order *> _list;
+
 public:
 	int size() { return _list.size(); }
-	void add(string id, string name, double price, int amount, Date date, Time time, string customerName);
+	void add(string id, string name, float price, int amount, ZDate date, ZTime time, string customerName);
 	void deleteAnOrder(string id);
 	void deleteAllOrder();
 	void displayAllOrder();
 	friend class OrderFile;
 	friend class Bill;
-};
-
-class OrderFile {
-public:
-	static void write(OrderStore orderList);
-	static OrderStore read();
-	static void deleteOrder(string ID);
 };
 
 #endif // !_ORDER_H_

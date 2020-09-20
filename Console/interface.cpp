@@ -30,7 +30,55 @@ void UserInterface::Screen()
     }
 }
 
+void UserInterface::DrawName()
+{
+    Screen();
+    Common::gotoXY(3, 3);
+    Common::color(14);
+    cout << "  /$$$$$$  /$$$$$$$  /$$   /$$ /$$ /$$$$$$$     /$$$$$$ /$$$$$$$$  /$$$$$$$  /$$$$$$  /$$$$$$$";
+    Common::gotoXY(3, 4);
+    cout << " /$$____/ /$$___  $$| $$  | $$| $$| $$__  $$   | $$    |__  $$__/ /$$___  $$| $$___$$| $$____/";
+    Common::gotoXY(3, 5);
+    cout << "| $$     | $$   \\ $$| $$  | $$| $$| $$  \\ $$    \\  $$$    | $$   | $$   \\ $$| $$$$$/ | $$$$$$$";
+    Common::gotoXY(3, 6);
+    cout << "| $$     | $$   | $$|  $$/ $$/| $$| $$  | $$      \\  $$   | $$   | $$   | $$| $$_ $$ | $$____/";
+    Common::gotoXY(3, 7);
+    cout << "|  $$$$$$|  $$$$$$$/  \\  $$ / | $$| $$$$$$$     /$$$$$$   | $$   |  $$$$$$$/| $$ \\ $$| $$$$$$$";
+    Common::gotoXY(3, 8);
+    cout << " \\______/ \\_______/    \\__/   |__/|_______/    |______/   |__/    \\_______/ |__/  \\_/|_______/";
+}
 
+void UserInterface::DrawIcon()
+{
+    Screen();
+    Common::color(14);
+    Common::gotoXY(60, 15);
+    cout << "                  $$$$$$$$$$$";
+    Common::gotoXY(60, 16);
+    cout << "                $$           $$";
+    Common::gotoXY(60, 17);
+    cout << "               $$             $$";
+    Common::gotoXY(60, 18);
+    cout << "             $$$$$$$$$$$$$$    $$";
+    Common::gotoXY(60, 19);
+    cout << "            $$            $$   $$";
+    Common::gotoXY(60, 20);
+    cout << "           $$             $$   $$$$$";
+    Common::gotoXY(60, 21);
+    cout << "            $$            $$   $$  $$";
+    Common::gotoXY(60, 22);
+    cout << "             $$$$$$$$$$$$$$    $$   $$";
+    Common::gotoXY(60, 23);
+    cout << "          	     $$	            $$   $$";
+    Common::gotoXY(60, 24);
+    cout << "                $$             $$   $$";
+    Common::gotoXY(60, 25);
+    cout << "                $$             $$   $$";
+    Common::gotoXY(60, 26);
+    cout << "                $$             $$  $$";
+    Common::gotoXY(60, 27);
+    cout << "                $$             $$$$";
+}
 
 // Menu chinh khi nguoi dung khoi chay
 void UserInterface::MainMenu() // Level 1
@@ -54,10 +102,7 @@ void UserInterface::MainMenu() // Level 1
     Common::gotoXY(50, 16);
     cout << "Nhap lua chon: ";
     Choice();
-
-    Common::gotoXY(0, 30);
-    cout << endl;
-    return;
+    // return;
 }
 
 // 5 lua chon cua main menu
@@ -80,7 +125,8 @@ void UserInterface::Choice()
             enter = 5;
             break;
         }
-        case 3:{
+        case 3:
+        {
             Menu::Danhgia();
             enter = 5;
             break;

@@ -9,6 +9,9 @@
 #include "../Console/interface.h"
 #include "../Console/Common.h"
 #include "../Discount/Discount.cpp"
+#include "../Bill_Order/Order.h"
+#include "../Bill_Order/Bill.h"
+#include "../Utility/util.h"
 
 using namespace std;
 
@@ -45,8 +48,8 @@ void Member::deleteMember(Member *mem)
 
 void Member::addMember()
 {
+    Common::color(14);
     Member *mem = new Member();
-    ofstream f;
     vector<Member *> list = readMemberFile();
     Common::gotoXY(49, 4);
     cout << "----------Hoan tat cac thong tin sau----------" << endl;
@@ -82,7 +85,7 @@ void Member::addMember()
 void Member::saveMemberInfo(vector<Member *> list)
 {
     ofstream f;
-    f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt", ios::out);
+    f.open(Util::path() + "\\Member\\member.txt", ios::out);
 
     f << list[0]->toString();
     for (int i = 1; i < list.size(); i++)
@@ -116,7 +119,7 @@ void Member::updateMemberInfo(Member *member)
 vector<Member *> Member::readMemberFile()
 {
     ifstream f;
-    f.open("E:\\VSC\\C++\\Project Store\\github\\Member\\member.txt");
+    f.open(Util::path() + "\\Member\\member.txt");
     vector<Member *> list;
     string s;
 
@@ -146,6 +149,7 @@ vector<Member *> Member::readMemberFile()
 
 void Member::showMemberInfo(Member *&member)
 {
+    Common::color(14);
     int choice;
 
     do
@@ -238,6 +242,7 @@ void Member::showMemberInfo(Member *&member)
 
 void Member::showMemberList()
 {
+    Common::color(14);
     vector<Member *> list = readMemberFile();
     int i = 4;
     Common::gotoXY(52, 2);
@@ -254,6 +259,7 @@ void Member::showMemberList()
 
 void Member::loginasMember()
 {
+    Common::color(14);
     vector<Member *> mem = Member::readMemberFile();
     Member *temp = new Member();
     string user, pass;
@@ -299,15 +305,13 @@ void Member::loginasMember()
     } while (pass != temp->Password());
 
     Member::MemberMenu(temp);
-
-    // system("cls");
 }
 
 void Member::MemberMenu(Member *&user)
 {
-
+    Common::color(14);
+    OrderStore orderList;
     int choice;
-
     do
     {
         system("cls");
@@ -329,7 +333,7 @@ void Member::MemberMenu(Member *&user)
         {
         case 1:
         {
-            Menu::Muahang(user->Name());
+            Menu::Muahang(1, user->Name(), orderList);
             break;
         }
         case 2:
@@ -348,12 +352,14 @@ void Member::MemberMenu(Member *&user)
     {
         Menu::SignIn();
     }
+    // delete orderList;
 }
 
 void Member::registerMember(Member *&mem)
 {
     system("cls");
     UserInterface::Screen();
+    Common::color(14);
     vector<Member *> list = readMemberFile();
     string s;
     Common::gotoXY(49, 6);
@@ -406,6 +412,7 @@ void Member::accumulatePoint(unsigned int purchase, Member *&member)
 
 int Member::usingPoint(bool sure)
 {
+    Common::color(14);
     if (sure == 1)
     {
         if (_point > 100)

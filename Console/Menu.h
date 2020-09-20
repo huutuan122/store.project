@@ -4,12 +4,15 @@
 #include <string>
 #include <vector>
 #include "../Good/Good.h"
-#include "../Employee/Time.h"
+#include "../Utility/Time.h"
+#include "../Bill_Order/Bill.h"
+#include "../Bill_Order/Order.h"
 
 using namespace std;
 
 class Menu
 {
+
 private:
 	string _hotline;
 	string _address;
@@ -17,6 +20,7 @@ private:
 	string _gmail;
 	Time time;
 	vector<string> _feedback;
+
 public: // Lưu lại thông tin danh sách hàng
 	GoodList data;
 
@@ -33,20 +37,24 @@ public: // Constructor
 	Menu(string hotline, string address, string moreInfo);
 
 public: // Methods
-// Nhóm hàm ở Menu chính
+	// Nhóm hàm ở Menu chính
 	static void Danhgia();
 	static void Thongtincuahang();
 	static void SignIn();
 
-// Hàm ở phần mua hàng của member (mục SignIn thứ nhất, trong hàm SignIn phía trên)
-	static void Muahang(string name);
-	void ViewGoodList();
-	static void Order(string customerName, string goodName, float money);
+	// Hàm ở phần mua hàng của member (mục SignIn thứ nhất, trong hàm SignIn phía trên)
+	static void Muahang(int page, string name, OrderStore &orderList);
+	void ViewMuaHang(int page);
+	static void ScreenMuaHang(Menu &menu, string name, OrderStore &orderList);
+	static void ScreenSapXep(Menu &menu, string name, OrderStore &orderList);
+	static void ScreenPhanLoai(Menu &menu, string name, OrderStore &orderList);
+	static void ScreenDanhGia(Menu &menu, string name, OrderStore &orderList);
+	static void printBill(string customerName);
 
-// Hàm đọc thông tin cửa hàng từ file và in ra màn hình
+	// Hàm đọc thông tin cửa hàng từ file và in ra màn hình
 	void ViewStoreInfo();
 
-// Hàm đọc và ghi lại nhận xét của người dùng
+	// Hàm đọc và ghi lại nhận xét của người dùng
 	static vector<string> readFeedbackFile();
 	void ViewFeedBack();
 	void addFeedback(string feedback, Time t);

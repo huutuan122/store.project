@@ -1,6 +1,8 @@
 #include "Good.h"
 #include "../Member/Tokenizer.h"
+#include <iomanip>
 
+// Construc của class Good
 Good::Good()
 {
 	_name = "";
@@ -23,6 +25,7 @@ Good::Good(string name, string code, float price, int amount, string description
 	_quantitySold = 0;
 }
 
+// Nhóm hàm class Good (Methods)
 void Good::update(string name, float price, int amount, string description, string type, int quantitySold)
 {
 	_name = name;
@@ -79,11 +82,14 @@ float Good::averageRate()
 
 string Good::status()
 {
+
 	if (_amount > 0)
 		return "Con hang";
 	else
 		return "Het hang";
 }
+
+// Nhóm hàm class GoodList (Method)
 
 bool GoodList::compNameAZ(Good a, Good b)
 {
@@ -120,6 +126,12 @@ bool GoodList::compRateDes(Good a, Good b)
 	return a.averageRate() > b.averageRate();
 }
 
+bool GoodList::compClassify(Good a, Good b)
+{
+	return a.type() < b.type();
+}
+
+// Nhóm hàm quản lí danh sách sản phẩm (dành cho quản lí)
 Good GoodList::goodAt(int position)
 {
 	return list[position];
@@ -159,10 +171,61 @@ Good GoodList::bestSeller()
 	return result;
 }
 
-// string GoodList::showList() {
+void GoodList::showList()
+{
+	Common::color(14);
+	Common::gotoXY(52, 2);
+	int i = 4;
+	cout << "_______DANH SACH HANG HOA_______";
+	for (auto p : list)
+	{
+		Common::gotoXY(10, i);
+		cout << i - 3;
+		Common::gotoXY(15, i);
+		cout << p.name();
+		Common::gotoXY(35, i);
+		cout << p.code();
+		i++;
+	}
+}
 
-// }
+void GoodList::addGood()
+{
+	Common::color(14);
+	Common::gotoXY(49, 4);
+	cout << "----------Hoan tat cac thong tin sau----------" << endl;
+	Common::gotoXY(40, 6);
+	cout << "Nhap ten san pham: ";
+	string name;
+	getline(cin, name);
+	getline(cin, name);
+	Common::gotoXY(40, 8);
+	cout << "Nhap id: ";
+	string id;
+	cin >> id;
+	Common::gotoXY(40, 10);
+	cout << "Nhap gia: ";
+	float price;
+	cin >> price;
+	Common::gotoXY(40, 12);
+	cout << "Nhap so luong: ";
+	int amount;
+	cin >> amount;
+	Common::gotoXY(40, 14);
+	cout << "Nhap mo ta: ";
+	string description;
+	getline(cin, description);
+	getline(cin, description);
+	Common::gotoXY(40, 16);
+	cout << "Nhap loai hang: ";
+	string type;
+	getline(cin, type);
+	Good newGood(name, id, price, amount, description, type);
+	list.push_back(newGood);
+	
+}
 
+// Sắp xếp sản phẩm theo yêu cầu
 void GoodList::sortAZ()
 {
 	sort(list.begin(), list.end(), compNameAZ);
@@ -198,6 +261,11 @@ void GoodList::sortByPopular()
 	sort(list.begin(), list.end(), compBestSeller);
 }
 
+void GoodList::classify()
+{
+	sort(list.begin(), list.end(), compClassify);
+}
+
 vector<Good> GoodList::search(string GoodName)
 {
 	vector<Good> result;
@@ -208,7 +276,7 @@ vector<Good> GoodList::search(string GoodName)
 	return result;
 }
 
-map<string, vector<Good>> GoodList::classify()
+map<string, vector<Good>> GoodList::classifyMap()
 {
 	map<string, vector<Good>> result;
 	for (auto e : list)
@@ -219,7 +287,7 @@ map<string, vector<Good>> GoodList::classify()
 string GoodList::listClassify()
 {
 	stringstream result;
-	map<string, vector<Good>> list = classify();
+	map<string, vector<Good>> list = classifyMap();
 	for (auto e : list)
 	{
 		result << e.first << "\t";
@@ -230,6 +298,7 @@ string GoodList::listClassify()
 	return result.str();
 }
 
+// Hàm hỗ trợ làm việc với file
 void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRate, string fileComment)
 {
 	ofstream file;
@@ -237,7 +306,7 @@ void GoodList::saveGoodListToFile(GoodList list, string fileGood, string fileRat
 	file << list.size() << endl;
 	for (auto good : list.list)
 		file << good.name() << " - "
-			 << good.code() << " - "
+			 << good.code() << " - " << fixed << setprecision(0)
 			 << good.price() << " - "
 			 << good.amount() << " - "
 			 << good.description() << " - "

@@ -7,6 +7,7 @@
 #include "../Console/interface.h"
 #include "../Member/member.h"
 #include "../System/system.h"
+#include "../Utility/util.h"
 
 using namespace std;
 // Nhóm hàm chức năng với voucher
@@ -14,6 +15,7 @@ void Discount::showVoucher()
 {
 	system("cls");
 	UserInterface::Screen();
+	Common::color(14);
 	int choice;
 	Common::gotoXY(49, 2);
 	cout << "---------- DANH SACH KHUYEN MAI ----------";
@@ -43,7 +45,7 @@ void Discount::showVoucher()
 map<string, string> Discount::getDiscountFile()
 {
 	ifstream f;
-	f.open("E:\\VSC\\C++\\Project Store\\github\\Discount\\CodeDiscount.txt");
+	f.open(Util::path() + "\\Discount\\CodeDiscount.txt");
 	map<string, string> discount;
 	string s;
 	int n;
@@ -65,6 +67,7 @@ map<string, string> Discount::getDiscountFile()
 
 void Discount::addVoucher()
 {
+	Common::color(14);
 	map<string, string> discountList = getDiscountFile();
 	string code, percent;
 	system("cls");
@@ -90,7 +93,7 @@ void Discount::addVoucher()
 		Manager::ManagerMenu();
 
 	ofstream f;
-	f.open("E:\\VSC\\C++\\Project Store\\github\\Discount\\CodeDiscount.txt", ios::out);
+	f.open(Util::path() + "\\Discount\\CodeDiscount.txt", ios::out);
 	f << discountList.size();
 
 	for (auto p : discountList)
@@ -105,7 +108,7 @@ void Discount::addVoucher()
 float Discount::countDiscount(float price, string codeDiscount, int UsedPoint, bool &codeIsValid)
 {
 	float result = price;
-	result = result - UsedPoint * 5;
+	result = result - UsedPoint * 1000;
 	map<string, string> discountList = getDiscountFile();
 	for (auto e : discountList)
 	{

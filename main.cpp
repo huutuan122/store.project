@@ -10,9 +10,12 @@ using namespace std;
 int main()
 {
     Common::fixConsoleWindow();
+    UserInterface::DrawName();
+    UserInterface::DrawIcon();
+    Common::gotoXY(30, 24);
+    system("pause");
     UserInterface::MainMenu();
-
-    cout << endl;
+    Common::gotoXY(30, 24);
     system("pause");
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include "../Employee/Time.h"
+#include "../Utility/Time.h"
 
 using namespace std;
 #ifndef _EMPLOYEE_H_
@@ -12,6 +12,7 @@ using namespace std;
 
 class Employee
 {
+
 private: // Attributes
 	string _name;
 	string _id;
@@ -47,7 +48,10 @@ public: // setter - getter (Encapsulation)
 	void setAddress(string add) { _address = add; }
 	string Password() { return _password; }
 	void setPassword(string pass) { _password = pass; }
-	double getSalary() { return _salary; }
+	double getSalary() {
+		_salary = ((_level * 2000.0) + 16000.0) * _monthlyworkhour;
+		return _salary;
+	 }
 
 public: // Nhóm hàm tính thời gian làm việc và lương
 	// Tính thời gian làm việc trong một ngày (từ lúc checkin đến lúc checkout)
@@ -80,7 +84,7 @@ public: // Nhóm hàm hiển thị dữ liệu đọc từ file
 
 public: // Nhóm hàm quản lí nhân viên
 	// Đăng kí cho nhân viên nào đó
-	static void SignUp(vector<Employee *> &list);
+	static void SignUp();
 	// Xoá nhân viên ra khỏi danh sách nhân viên
 	static void deleteEmployee(Employee *emp);
 	// Cập nhập lại danh sách nhân viên khi kết thúc phiên làm việc

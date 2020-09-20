@@ -10,6 +10,7 @@ using namespace std;
 
 class Member
 {
+    
 private:
     string _user;
     string _name;
