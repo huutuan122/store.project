@@ -85,7 +85,7 @@ void Member::addMember()
 void Member::saveMemberInfo(vector<Member *> list)
 {
     ofstream f;
-    f.open(Util::path() + "\\Member\\member.txt", ios::out);
+    f.open("member.txt", ios::out);
 
     f << list[0]->toString();
     for (int i = 1; i < list.size(); i++)
@@ -119,7 +119,7 @@ void Member::updateMemberInfo(Member *member)
 vector<Member *> Member::readMemberFile()
 {
     ifstream f;
-    f.open(Util::path() + "\\Member\\member.txt");
+    f.open( "member.txt");
     vector<Member *> list;
     string s;
 

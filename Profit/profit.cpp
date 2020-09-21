@@ -10,7 +10,7 @@ unsigned long int Profit::totalBillSold()
 {
     unsigned long int S = 0;
     ifstream f;
-    f.open(Util::path() + "\\Bill_Order\\TotalBill.txt");
+    f.open("TotalBill.txt");
     while (!f.eof())
     {
         string s;

@@ -243,7 +243,7 @@ vector<Employee *> Employee::LoadData()
 	string temp;
 	vector<string> tokens;
 	vector<Employee *> list;
-	reader.open(Util::path() + "\\Employee\\EmployeeData.txt", ios::in);
+	reader.open( "EmployeeData.txt", ios::in);
 
 	while (!reader.eof())
 	{
@@ -464,7 +464,7 @@ void Employee::updateEmployeeInfo(Employee *a)
 void Employee::SaveEmployeeInfo(vector<Employee *> list)
 {
 	ofstream writer;
-	writer.open(Util::path() + "\\Employee\\EmployeeData.txt", ios::out);
+	writer.open("EmployeeData.txt", ios::out);
 
 	writer << list[0]->toString();
 	for (int i = 1; i < list.size(); i++)

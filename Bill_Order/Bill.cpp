@@ -157,7 +157,7 @@ BillStore BillFile::read()
 	vector<pair<string, int>> itemsList;
 	int total;
 
-	ifstream inputFile(Util::path() + "\\Bill_Order\\Bill.txt");
+	ifstream inputFile("Bill.txt");
 
 	getline(inputFile, line);
 	while (!inputFile.eof())

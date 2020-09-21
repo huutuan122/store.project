@@ -93,7 +93,7 @@ void Discount::addVoucher()
 		Manager::ManagerMenu();
 
 	ofstream f;
-	f.open(Util::path() + "\\Discount\\CodeDiscount.txt", ios::out);
+	f.open("CodeDiscount.txt", ios::out);
 	f << discountList.size();
 
 	for (auto p : discountList)

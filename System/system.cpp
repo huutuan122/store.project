@@ -23,7 +23,7 @@ string Manager::toString()
 vector<Manager *> Manager::readManagerFile()
 {
     ifstream f;
-    f.open(Util::path() + "\\System\\manager.txt");
+    f.open( "manager.txt");
 
     vector<Manager *> list;
 
@@ -347,7 +347,7 @@ void Manager::GoodManagement()
     int choice;
     Menu menu;
     Common::color(14);
-    menu.data = GoodList::readGoodListFromFile(Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+    menu.data = GoodList::readGoodListFromFile("GoodList.txt",  "Rate.txt", "Comment.txt");
     system("cls");
     UserInterface::Screen();
     Common::gotoXY(51, 6);
@@ -375,7 +375,7 @@ void Manager::GoodManagement()
             menu.data.addGood();
 
             Common::gotoXY(35, 22);
-            GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+            GoodList::saveGoodListToFile(menu.data, "GoodList.txt",  "Rate.txt", "Comment.txt");
             cout << "Nhan 0 de quay lai menu quan li: ";
 
             break;
@@ -396,7 +396,7 @@ void Manager::GoodManagement()
                 Common::gotoXY(35, 25);
                 cout << "Khong co san pham thu 0";
             }
-            GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+            GoodList::saveGoodListToFile(menu.data,  "GoodList.txt", "Rate.txt",  "Comment.txt");
             Common::gotoXY(35, 26);
             cout << "Da xoa xong, nhan 0 de quay lai menu quan li: ";
 

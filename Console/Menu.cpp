@@ -142,7 +142,7 @@ void Menu::Muahang(int page, string name, OrderStore &orderList)
 	Common::color(14);
 	Common::gotoXY(1, 2);
 	Menu menu;
-	menu.data = GoodList::readGoodListFromFile(Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+	menu.data = GoodList::readGoodListFromFile("GoodList.txt",  "Rate.txt",  "Comment.txt");
 	menu.ViewMuaHang(page);
 	Common::gotoXY(4, 25);
 	cout << "1. Mua hang		2. Sap xep	3. Phan loai";
@@ -241,7 +241,7 @@ void Menu::ScreenMuaHang(Menu &menu, string name, OrderStore &orderList)
 		Order *temp = new Order(currentGood.code(), currentGood.name(), currentGood.price(), num, nowd, nowt, name);
 		orderList._list.push_back(temp);
 		menu.data.list[choice - 1].setQuantitySold(menu.data.list[choice - 1].quantitySold() + 1);
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt",  "Comment.txt");
 		Common::gotoXY(6, 27);
 		cout << "Ban co muon mua tiep khong? Co (1) hoac Khong (2): ";
 		int choice2;
@@ -329,31 +329,31 @@ void Menu::ScreenSapXep(Menu &menu, string name, OrderStore &orderList)
 	{
 	case 1:
 		menu.data.sortAZ();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data,  "GoodList.txt","Rate.txt", "Comment.txt");
 		break;
 	case 2:
 		menu.data.sortZA();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	case 3:
 		menu.data.sortByPriceAscending();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	case 4:
 		menu.data.sortByPriceDescending();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	case 5:
 		menu.data.sortByPopular();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	case 6:
 		menu.data.sortByRateAscending();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	case 7:
 		menu.data.sortByRateDescending();
-		GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+		GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 		break;
 	default:
 		break;
@@ -364,7 +364,7 @@ void Menu::ScreenSapXep(Menu &menu, string name, OrderStore &orderList)
 void Menu::ScreenPhanLoai(Menu &menu, string name, OrderStore &orderList)
 {
 	menu.data.classify();
-	GoodList::saveGoodListToFile(menu.data, Util::path() + "\\Good\\GoodList.txt", Util::path() + "\\Good\\Rate.txt", Util::path() + "\\Good\\Comment.txt");
+	GoodList::saveGoodListToFile(menu.data, "GoodList.txt", "Rate.txt", "Comment.txt");
 	Menu::Muahang(1, name, orderList);
 }
 
@@ -433,7 +433,7 @@ void Menu::ViewStoreInfo()
 {
 	Common::color(14);
 	ifstream f;
-	f.open(Util::path() + "\\Console\\StoreInfo.txt");
+	f.open( "StoreInfo.txt");
 	string s;
 	vector<string> temp;
 	while (!f.eof())
@@ -473,7 +473,7 @@ vector<string> Menu::readFeedbackFile()
 {
 	vector<string> feedback;
 	ifstream f;
-	f.open(Util::path() + "\\Console\\feedback.txt");
+	f.open( "feedback.txt");
 	while (!f.eof())
 	{
 		string s;
@@ -526,7 +526,7 @@ void Menu::addFeedback(string feedback, Time t)
 	writer << t.toString() << " - " << feedback;
 	feedbackList.push_back(writer.str());
 	ofstream f;
-	f.open(Util::path() + "\\Console\\feedback.txt", ios::out);
+	f.open("feedback.txt", ios::out);
 	f << feedbackList[0];
 	for (int i = 1; i < feedbackList.size(); i++)
 	{
